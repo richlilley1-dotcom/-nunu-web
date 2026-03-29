@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nunu — Technology That Delivers Business Outcomes</title>
+    <meta name="description" content="nunu advanced technologies delivers intelligent voice, connectivity, security and AI solutions engineered for modern enterprise.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --black:      #000000;
+            --white:      #FFFFFF;
+            --green:      #00FF00;
+            --light-gray: #F0F0F0;
+            --dark-gray:  #333333;
+            --surface:    #0d0d0d;
+            --card:       #111111;
+            --card-hover: #1a1a1a;
+            --border:     #333333;
+            --border-mid: #444444;
+            --muted:      #888888;
+            --green-dim:  rgba(0,255,0,0.07);
+            --green-lo:   rgba(0,255,0,0.12);
+            --green-glow: rgba(0,255,0,0.30);
+            --font-display: 'Nunito', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --nav-h: 160px; --r: 14px; --r-lg: 22px; --max: 1180px;
+            --glass-bg:     rgba(255,255,255,0.04);
+            --glass-border: rgba(255,255,255,0.08);
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        html { scroll-behavior: smooth; }
+        body { background: var(--black); color: var(--white); font-family: var(--font-body); font-size: 16px; line-height: 1.65; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        h1,h2,h3,h4 { font-family: var(--font-display); font-weight: 800; line-height: 1.1; }
+        h1 { font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: -0.02em; }
+        h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); letter-spacing: -0.02em; }
+        h3 { font-size: 1.2rem; font-weight: 700; }
+        p { color: var(--muted); }
+        a { text-decoration: none; color: inherit; }
+        .eyebrow { display: inline-block; font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 1rem; }
+        .container { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; padding: 0.85rem 1.75rem; border-radius: 8px; cursor: pointer; transition: all 0.2s var(--ease); border: none; white-space: nowrap; }
+        .btn-primary { background: var(--green); color: var(--black); }
+        .btn-primary:hover { background: #33ff33; box-shadow: 0 0 32px var(--green-glow); transform: translateY(-1px); }
+        .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border-mid); }
+        .btn-outline:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
+        .section { padding: 7rem 0; }
+
+        /* REVEAL ANIMATION */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); display: flex; align-items: center; background: rgba(0,0,0,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+        .nav-logo img { height: 288px; width: auto; filter: brightness(0) invert(1); }
+        .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+        .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); padding: 0.5rem 0.85rem; border-radius: 6px; transition: color 0.2s, background 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--white); background: rgba(255,255,255,0.05); }
+        .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+        .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+        .mobile-menu { display: none; position: fixed; inset: 0; z-index: 99; background: rgba(0,0,0,0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-family: var(--font-display); font-size: 1.75rem; font-weight: 800; color: var(--white); padding: 0.5rem 1rem; transition: color 0.2s; }
+        .mobile-menu a:hover { color: var(--green); }
+        .mobile-menu .btn { margin-top: 1rem; font-size: 1rem; padding: 1rem 2rem; }
+        .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; line-height: 1; }
+        @media (max-width: 768px) { .nav-links, .nav-actions .btn-outline { display: none; } .nav-hamburger { display: flex; } }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden;
+            padding: calc(var(--nav-h) + 4rem) 0 6rem;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 60%; height: 100%;
+            background: radial-gradient(ellipse 60% 80% at 80% 40%, rgba(0,255,0,0.06) 0%, transparent 70%);
+        }
+        .hero::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 680px; }
+        .hero-content p { font-size: 1.15rem; margin: 1.5rem 0 2.5rem; max-width: 540px; line-height: 1.7; }
+        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 500; color: var(--green); margin-bottom: 1.5rem; padding: 0.4rem 1rem; border: 1px solid rgba(0,255,0,0.2); border-radius: 100px; background: var(--green-dim); }
+        .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+        /* STATS BAR */
+        .stats-bar { border-bottom: 1px solid var(--border); padding: 3rem 0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+        .stat-value { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; color: var(--white); }
+        .stat-value span { color: var(--green); }
+        .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+        @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        /* SOLUTIONS BENTO */
+        .solutions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+        .solution-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: var(--r);
+            padding: 2rem; transition: all 0.3s var(--ease); position: relative; overflow: hidden;
+        }
+        .solution-card:hover { border-color: rgba(0,255,0,0.3); transform: translateY(-3px); box-shadow: 0 8px 40px rgba(0,255,0,0.08); }
+        .solution-card.featured { grid-column: span 2; background: linear-gradient(135deg, var(--card) 0%, rgba(0,255,0,0.04) 100%); border-color: rgba(0,255,0,0.2); }
+        .solution-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--green-dim); border: 1px solid rgba(0,255,0,0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; color: var(--green); }
+        .solution-card h3 { margin-bottom: 0.75rem; color: var(--white); }
+        .solution-card p { font-size: 0.9rem; line-height: 1.6; }
+        .solution-card .card-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--green); margin-top: 1.25rem; transition: gap 0.2s; }
+        .solution-card:hover .card-link { gap: 0.7rem; }
+        @media (max-width: 768px) { .solutions-grid { grid-template-columns: 1fr; } .solution-card.featured { grid-column: span 1; } }
+
+        /* WHY NUNU */
+        .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+        .why-list { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; }
+        .why-list li { display: flex; gap: 1rem; align-items: flex-start; }
+        .why-num { flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px; background: var(--green-dim); border: 1px solid rgba(0,255,0,0.15); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: 0.85rem; color: var(--green); }
+        .why-text h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .why-text p { font-size: 0.9rem; }
+        .why-visual {
+            background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
+            padding: 3rem; display: flex; flex-direction: column; gap: 1.5rem;
+        }
+        .why-stat-row { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+        .why-stat-row:last-child { border-bottom: none; }
+        .why-stat-label { font-size: 0.85rem; color: var(--muted); }
+        .why-stat-val { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--green); }
+        @media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; } }
+
+        /* AI SECTION */
+        .ai-section { background: linear-gradient(180deg, var(--black) 0%, rgba(0,255,0,0.03) 50%, var(--black) 100%); }
+        .ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+        .ai-features { display: flex; flex-direction: column; gap: 1rem; }
+        .ai-feature {
+            display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem; border-radius: var(--r);
+            border: 1px solid transparent; transition: all 0.3s var(--ease);
+        }
+        .ai-feature:hover { background: var(--glass-bg); border-color: var(--glass-border); }
+        .ai-dot { flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-top: 0.5rem; }
+        .ai-feature h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .ai-feature p { font-size: 0.9rem; }
+        .ai-visual {
+            background: var(--card); border: 1px solid rgba(0,255,0,0.15); border-radius: var(--r-lg);
+            padding: 2.5rem; position: relative; overflow: hidden;
+        }
+        .ai-visual::before {
+            content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(0,255,0,0.06) 0%, transparent 70%);
+        }
+        .ai-visual-inner { position: relative; z-index: 1; }
+        .ai-visual h3 { font-size: 1.4rem; margin-bottom: 1.5rem; }
+        .ai-metric { display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 0; border-bottom: 1px solid var(--border); }
+        .ai-metric:last-child { border-bottom: none; }
+        .ai-metric-label { font-size: 0.85rem; color: var(--muted); }
+        .ai-metric-val { font-family: var(--font-display); font-weight: 800; color: var(--white); }
+        @media (max-width: 768px) { .ai-grid { grid-template-columns: 1fr; } }
+
+        /* CTA */
+        .cta-section { text-align: center; padding: 8rem 0; position: relative; }
+        .cta-section::before {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+            width: 500px; height: 500px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,255,0,0.06) 0%, transparent 70%);
+        }
+        .cta-section h2 { margin-bottom: 1.25rem; position: relative; z-index: 1; }
+        .cta-section p { max-width: 500px; margin: 0 auto 2.5rem; position: relative; z-index: 1; font-size: 1.05rem; }
+        .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+        /* FOOTER */
+        footer { border-top: 1px solid var(--border); padding: 3rem 0; }
+        .footer-logo img { height: 216px; width: auto; margin-bottom: 1rem; display: block; filter: brightness(0) invert(1); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-bottom span { font-size: 0.8rem; color: var(--muted); }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a { font-size: 0.8rem; color: var(--muted); transition: color 0.2s; }
+        .footer-links a:hover { color: var(--green); }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a class="nav-logo" href="index.html">
+            <img src="nunu_Full_Logo.png" alt="nunu advanced technologies LTD">
+        </a>
+        <ul class="nav-links">
+            <li><a href="platform.html">Platform</a></li>
+            <li><a href="#solutions">Solutions</a></li>
+            <li><a href="#ai-intelligence">AI Intelligence</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="contact-us.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a class="btn btn-outline" href="contact-us.html">Customer Login</a>
+            <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+        </div>
+        <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-close" id="mobile-close">&#215;</button>
+    <a href="platform.html">Platform</a>
+    <a href="#solutions">Solutions</a>
+    <a href="#ai-intelligence">AI Intelligence</a>
+    <a href="#about">About</a>
+    <a href="contact-us.html">Contact</a>
+    <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge">Trusted by UK enterprises</div>
+            <h1>Technology That Delivers Business Outcomes</h1>
+            <p>Intelligent voice, connectivity, security and AI — engineered as one platform, managed by one partner, measured against your objectives.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+                <a class="btn btn-outline" href="platform.html">Explore the Platform</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+    <div class="container">
+        <div class="stats-grid reveal">
+            <div>
+                <div class="stat-value">99.99<span>%</span></div>
+                <div class="stat-label">Platform Uptime SLA</div>
+            </div>
+            <div>
+                <div class="stat-value"><span>&lt;</span>30s</div>
+                <div class="stat-label">Failover Time</div>
+            </div>
+            <div>
+                <div class="stat-value">8</div>
+                <div class="stat-label">Integrated Capabilities</div>
+            </div>
+            <div>
+                <div class="stat-value">24<span>/</span>7</div>
+                <div class="stat-label">UK-Based Support</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SOLUTIONS -->
+<section class="section" id="solutions">
+    <div class="container">
+        <span class="eyebrow">Solutions</span>
+        <h2>One platform. Eight capabilities.<br>No gaps.</h2>
+        <div class="solutions-grid">
+            <div class="solution-card featured reveal">
+                <div class="solution-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <h3>Connectivity Resilience</h3>
+                <p>SD-WAN, multi-carrier failover and always-on architecture. Your business stays connected with sub-30-second failover and 99.99% uptime SLA.</p>
+                <span class="card-link">Learn more &rarr;</span>
+            </div>
+            <div class="solution-card reveal">
+                <div class="solution-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                </div>
+                <h3>Unified Voice</h3>
+                <p>Cloud PBX, Teams integration, call recording and AI transcription — all from one platform.</p>
+                <span class="card-link">Learn more &rarr;</span>
+            </div>
+            <div class="solution-card reveal">
+                <div class="solution-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                </div>
+                <h3>Contact Centre</h3>
+                <p>Omnichannel routing across voice, email, chat, SMS and social — with skills-based distribution.</p>
+                <span class="card-link">Learn more &rarr;</span>
+            </div>
+            <div class="solution-card reveal">
+                <div class="solution-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                </div>
+                <h3>Security &amp; Compliance</h3>
+                <p>End-to-end encryption, UK data residency, and alignment with FCA, GDPR and ISO frameworks.</p>
+                <span class="card-link">Learn more &rarr;</span>
+            </div>
+            <div class="solution-card featured reveal">
+                <div class="solution-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5"/></svg>
+                </div>
+                <h3>AI Conversation Intelligence</h3>
+                <p>Real-time sentiment analysis, compliance monitoring, semantic search across every conversation. Transform calls from cost centres into insight engines.</p>
+                <span class="card-link">Learn more &rarr;</span>
+            </div>
+            <div class="solution-card reveal">
+                <div class="solution-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+                </div>
+                <h3>Operational Support</h3>
+                <p>24/7 proactive monitoring, named engineers, and SLA-backed resolution from a UK team.</p>
+                <span class="card-link">Learn more &rarr;</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY NUNU -->
+<section class="section" id="about">
+    <div class="container">
+        <span class="eyebrow">Why nunu</span>
+        <h2>Built different. On purpose.</h2>
+        <div class="why-grid">
+            <ul class="why-list reveal">
+                <li>
+                    <div class="why-num">01</div>
+                    <div class="why-text">
+                        <h4>Single accountable partner</h4>
+                        <p>One contract. One escalation path. No finger-pointing between vendors.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="why-num">02</div>
+                    <div class="why-text">
+                        <h4>Engineered integration</h4>
+                        <p>Every capability is designed to work with every other. Not bolted on — built in.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="why-num">03</div>
+                    <div class="why-text">
+                        <h4>Outcome-measured</h4>
+                        <p>We don't sell boxes or minutes. We sell measurable business improvements.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="why-num">04</div>
+                    <div class="why-text">
+                        <h4>UK-based, UK-focused</h4>
+                        <p>Data residency, support teams and engineering — all in the UK.</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="why-visual reveal">
+                <h3 style="margin-bottom: 1rem;">Platform at a glance</h3>
+                <div class="why-stat-row">
+                    <span class="why-stat-label">Platform uptime SLA</span>
+                    <span class="why-stat-val">99.99%</span>
+                </div>
+                <div class="why-stat-row">
+                    <span class="why-stat-label">Failover time</span>
+                    <span class="why-stat-val">&lt; 30s</span>
+                </div>
+                <div class="why-stat-row">
+                    <span class="why-stat-label">UK data residency</span>
+                    <span class="why-stat-val">100%</span>
+                </div>
+                <div class="why-stat-row">
+                    <span class="why-stat-label">Support response</span>
+                    <span class="why-stat-val">24/7</span>
+                </div>
+                <div class="why-stat-row">
+                    <span class="why-stat-label">Integrated capabilities</span>
+                    <span class="why-stat-val">8</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI INTELLIGENCE -->
+<section class="section ai-section" id="ai-intelligence">
+    <div class="container">
+        <span class="eyebrow">AI Intelligence</span>
+        <h2>Every conversation becomes<br>a business asset</h2>
+        <div class="ai-grid">
+            <div class="ai-features reveal">
+                <div class="ai-feature">
+                    <div class="ai-dot"></div>
+                    <div>
+                        <h4>Real-time transcription</h4>
+                        <p>Every call captured, transcribed and searchable — automatically.</p>
+                    </div>
+                </div>
+                <div class="ai-feature">
+                    <div class="ai-dot"></div>
+                    <div>
+                        <h4>Sentiment analysis</h4>
+                        <p>Detect customer emotion in real time. Flag at-risk calls before they escalate.</p>
+                    </div>
+                </div>
+                <div class="ai-feature">
+                    <div class="ai-dot"></div>
+                    <div>
+                        <h4>Compliance monitoring</h4>
+                        <p>Automated script adherence and regulatory phrase detection across every interaction.</p>
+                    </div>
+                </div>
+                <div class="ai-feature">
+                    <div class="ai-dot"></div>
+                    <div>
+                        <h4>Semantic search</h4>
+                        <p>Search by meaning, not keywords. Find the conversation you need in seconds.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ai-visual reveal">
+                <div class="ai-visual-inner">
+                    <h3>Intelligence dashboard</h3>
+                    <div class="ai-metric">
+                        <span class="ai-metric-label">Calls analysed today</span>
+                        <span class="ai-metric-val">2,847</span>
+                    </div>
+                    <div class="ai-metric">
+                        <span class="ai-metric-label">Average sentiment</span>
+                        <span class="ai-metric-val" style="color: var(--green);">Positive</span>
+                    </div>
+                    <div class="ai-metric">
+                        <span class="ai-metric-label">Compliance rate</span>
+                        <span class="ai-metric-val">98.4%</span>
+                    </div>
+                    <div class="ai-metric">
+                        <span class="ai-metric-label">At-risk flags</span>
+                        <span class="ai-metric-val">12</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <span class="eyebrow">Get started</span>
+        <h2>See what nunu can do<br>for your business</h2>
+        <p>A Clarity Audit gives you a complete picture of your current communications infrastructure — and a clear path forward.</p>
+        <div class="cta-actions">
+            <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+            <a class="btn btn-outline" href="contact-us.html">Talk to us</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-logo">
+            <img src="nunu_Logo_High_Res_Asset.png" alt="nunu">
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 nunu advanced technologies LTD. All rights reserved.</span>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="values.html">Values</a>
+                <a href="contact-us.html">Contact</a>
+                <a href="mailto:info@nunu.solutions">info@nunu.solutions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function(){
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileClose = document.getElementById('mobile-close');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => obs.observe(el));
+})();
+</script>
+<script src="logo-loader.js"></script>
+</body>
+</html>

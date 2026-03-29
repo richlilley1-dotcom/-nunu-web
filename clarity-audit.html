@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarity Audit — nunu</title>
+    <meta name="description" content="Book a free Clarity Audit with nunu. We assess your communications infrastructure and give you a clear, actionable roadmap.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --black: #000000; --white: #FFFFFF; --green: #00FF00; --light-gray: #F0F0F0; --dark-gray: #333333;
+            --surface: #0d0d0d; --card: #111111; --card-hover: #1a1a1a; --border: #333333; --border-mid: #444444; --muted: #888888;
+            --green-dim: rgba(0,255,0,0.07); --green-lo: rgba(0,255,0,0.12); --green-glow: rgba(0,255,0,0.30);
+            --font-display: 'Nunito', sans-serif; --font-body: 'Inter', sans-serif;
+            --nav-h: 160px; --r: 14px; --r-lg: 22px; --max: 1180px;
+            --glass-bg: rgba(255,255,255,0.04); --glass-border: rgba(255,255,255,0.08);
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        html { scroll-behavior: smooth; }
+        body { background: var(--black); color: var(--white); font-family: var(--font-body); font-size: 16px; line-height: 1.65; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        h1,h2,h3,h4 { font-family: var(--font-display); font-weight: 800; line-height: 1.1; }
+        h1 { font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: -0.02em; }
+        h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); letter-spacing: -0.02em; }
+        h3 { font-size: 1.2rem; font-weight: 700; }
+        p { color: var(--muted); }
+        a { text-decoration: none; color: inherit; }
+        .eyebrow { display: inline-block; font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 1rem; }
+        .container { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; padding: 0.85rem 1.75rem; border-radius: 8px; cursor: pointer; transition: all 0.2s var(--ease); border: none; white-space: nowrap; }
+        .btn-primary { background: var(--green); color: var(--black); }
+        .btn-primary:hover { background: #33ff33; box-shadow: 0 0 32px var(--green-glow); transform: translateY(-1px); }
+        .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border-mid); }
+        .btn-outline:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); display: flex; align-items: center; background: rgba(0,0,0,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+        .nav-logo img { height: 288px; width: auto; filter: brightness(0) invert(1); }
+        .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+        .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); padding: 0.5rem 0.85rem; border-radius: 6px; transition: color 0.2s, background 0.2s; }
+        .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+        .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+        .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+        .mobile-menu { display: none; position: fixed; inset: 0; z-index: 99; background: rgba(0,0,0,0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-family: var(--font-display); font-size: 1.75rem; font-weight: 800; color: var(--white); padding: 0.5rem 1rem; transition: color 0.2s; }
+        .mobile-menu a:hover { color: var(--green); }
+        .mobile-menu .btn { margin-top: 1rem; font-size: 1rem; padding: 1rem 2rem; }
+        .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; line-height: 1; }
+        @media (max-width: 768px) { .nav-links, .nav-actions .btn-outline { display: none; } .nav-hamburger { display: flex; } }
+
+        /* PAGE HERO */
+        .page-hero { padding: calc(var(--nav-h) + 5rem) 0 5rem; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+        .page-hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: radial-gradient(ellipse 60% 80% at 100% 50%, rgba(0,255,0,0.05) 0%, transparent 70%); }
+        .page-hero-inner { max-width: 700px; position: relative; z-index: 1; }
+        .page-hero p { font-size: 1.1rem; margin-top: 1.25rem; max-width: 580px; }
+
+        /* AUDIT CONTENT */
+        .audit-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; padding: 5rem 0; }
+        .audit-info h2 { margin-bottom: 2rem; }
+
+        .process-steps { display: flex; flex-direction: column; gap: 2rem; }
+        .process-step { display: flex; gap: 1.25rem; align-items: flex-start; }
+        .step-num { flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px; background: var(--green-dim); border: 1px solid rgba(0,255,0,0.15); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: 0.9rem; color: var(--green); }
+        .step-content h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .step-content p { font-size: 0.9rem; }
+
+        /* FORM */
+        .audit-form-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
+            padding: 2.5rem; position: sticky; top: calc(var(--nav-h) + 2rem);
+        }
+        .audit-form-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .audit-form-card > p { font-size: 0.9rem; margin-bottom: 2rem; }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+            padding: 0.8rem 1rem; color: var(--white); font-family: var(--font-body); font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--green); }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+        .form-submit { width: 100%; margin-top: 0.5rem; justify-content: center; font-size: 1rem; padding: 1rem; }
+
+        /* WHAT YOU GET */
+        .deliverables { padding: 5rem 0; border-top: 1px solid var(--border); }
+        .deliverables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+        .deliverable-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 2rem;
+            transition: all 0.3s var(--ease);
+        }
+        .deliverable-card:hover { border-color: rgba(0,255,0,0.3); transform: translateY(-2px); }
+        .deliverable-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--green-dim); border: 1px solid rgba(0,255,0,0.15); display: flex; align-items: center; justify-content: center; color: var(--green); margin-bottom: 1rem; }
+        .deliverable-card h3 { margin-bottom: 0.5rem; }
+        .deliverable-card p { font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .audit-layout { grid-template-columns: 1fr; gap: 3rem; }
+            .audit-form-card { position: static; }
+            .deliverables-grid { grid-template-columns: 1fr; }
+        }
+
+        /* FOOTER */
+        footer { border-top: 1px solid var(--border); padding: 3rem 0; }
+        .footer-logo img { height: 216px; width: auto; margin-bottom: 1rem; display: block; filter: brightness(0) invert(1); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-bottom span { font-size: 0.8rem; color: var(--muted); }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a { font-size: 0.8rem; color: var(--muted); transition: color 0.2s; }
+        .footer-links a:hover { color: var(--green); }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a class="nav-logo" href="index.html"><img src="nunu_Logo_High_Res_Asset.png" alt="nunu"></a>
+        <ul class="nav-links">
+            <li><a href="platform.html">Platform</a></li>
+            <li><a href="index.html#solutions">Solutions</a></li>
+            <li><a href="index.html#ai-intelligence">AI Intelligence</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="contact-us.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a class="btn btn-outline" href="contact-us.html">Customer Login</a>
+            <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+        </div>
+        <button class="nav-hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-close" id="mobile-close">&#215;</button>
+    <a href="platform.html">Platform</a>
+    <a href="index.html#solutions">Solutions</a>
+    <a href="index.html#about">About</a>
+    <a href="contact-us.html">Contact</a>
+    <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <div class="container">
+        <div class="page-hero-inner">
+            <span class="eyebrow">Clarity Audit</span>
+            <h1>See your infrastructure clearly — then act decisively</h1>
+            <p>A free, no-obligation assessment of your current communications, connectivity and voice landscape. You get a clear picture and an actionable roadmap.</p>
+        </div>
+    </div>
+</div>
+
+<!-- AUDIT FORM + PROCESS -->
+<div class="container">
+    <div class="audit-layout">
+        <div class="audit-info reveal">
+            <h2>How it works</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-num">01</div>
+                    <div class="step-content">
+                        <h4>You book a call</h4>
+                        <p>Fill in the form and we'll schedule a 30-minute discovery call at a time that suits you.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">02</div>
+                    <div class="step-content">
+                        <h4>We map your landscape</h4>
+                        <p>Our engineers audit your current contracts, infrastructure, spend, and pain points.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">03</div>
+                    <div class="step-content">
+                        <h4>You get the Clarity Report</h4>
+                        <p>A clear, jargon-free document showing where you are, what's costing you, and what to do next.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">04</div>
+                    <div class="step-content">
+                        <h4>We build the roadmap</h4>
+                        <p>If you want to move forward, we create a phased implementation plan with timelines and costs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="audit-form-card reveal">
+            <h3>Book your Clarity Audit</h3>
+            <p>Free. No obligation. No sales pitch.</p>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">Full name</label>
+                    <input type="text" id="name" name="name" required placeholder="Jane Smith">
+                </div>
+                <div class="form-group">
+                    <label for="email">Work email</label>
+                    <input type="email" id="email" name="email" required placeholder="jane@company.co.uk">
+                </div>
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company" required placeholder="Acme Ltd">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" placeholder="07700 900000">
+                </div>
+                <div class="form-group">
+                    <label for="employees">Company size</label>
+                    <select id="employees" name="employees">
+                        <option value="">Select...</option>
+                        <option>10–50 employees</option>
+                        <option>51–200 employees</option>
+                        <option>201–500 employees</option>
+                        <option>500+ employees</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">What are your biggest challenges right now?</label>
+                    <textarea id="message" name="message" placeholder="e.g. unreliable connectivity, outdated phone system, compliance concerns..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary form-submit">Book My Clarity Audit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- DELIVERABLES -->
+<section class="deliverables">
+    <div class="container">
+        <span class="eyebrow">What you get</span>
+        <h2>The Clarity Report includes</h2>
+        <div class="deliverables-grid">
+            <div class="deliverable-card reveal">
+                <div class="deliverable-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <h3>Infrastructure map</h3>
+                <p>A visual overview of your current connectivity, voice, and communications stack.</p>
+            </div>
+            <div class="deliverable-card reveal">
+                <div class="deliverable-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                </div>
+                <h3>Cost analysis</h3>
+                <p>Line-by-line breakdown of what you're spending and where savings exist.</p>
+            </div>
+            <div class="deliverable-card reveal">
+                <div class="deliverable-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <h3>Risk assessment</h3>
+                <p>Single points of failure, compliance gaps, and security vulnerabilities identified.</p>
+            </div>
+            <div class="deliverable-card reveal">
+                <div class="deliverable-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h3>Contract review</h3>
+                <p>Analysis of existing contracts, lock-in dates, and renewal opportunities.</p>
+            </div>
+            <div class="deliverable-card reveal">
+                <div class="deliverable-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <h3>Recommendations</h3>
+                <p>Prioritised, actionable recommendations with clear business justification.</p>
+            </div>
+            <div class="deliverable-card reveal">
+                <div class="deliverable-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <h3>Implementation roadmap</h3>
+                <p>Phased plan with timelines, milestones, and projected ROI.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-logo"><img src="nunu_Logo_High_Res_Asset.png" alt="nunu"></div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 nunu advanced technologies LTD. All rights reserved.</span>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="values.html">Values</a>
+                <a href="contact-us.html">Contact</a>
+                <a href="mailto:info@nunu.solutions">info@nunu.solutions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function(){
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileClose = document.getElementById('mobile-close');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => obs.observe(el));
+})();
+</script>
+<script src="logo-loader.js"></script>
+</body>
+</html>

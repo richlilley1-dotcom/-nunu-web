@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform — nunu</title>
+    <meta name="description" content="The nunu platform unifies connectivity, voice, contact centre, security, AI intelligence and support into one accountable architecture.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            /* ── Brand colours (brand guidelines) ── */
+            --black:      #000000;
+            --white:      #FFFFFF;
+            --green:      #00FF00;
+            --light-gray: #F0F0F0;
+            --dark-gray:  #333333;
+
+            /* ── Dark theme surfaces (derived) ── */
+            --surface:    #0d0d0d;
+            --card:       #111111;
+            --card-hover: #1a1a1a;
+            --border:     #333333;
+            --border-mid: #444444;
+            --muted:      #888888;
+
+            /* ── Green tints ── */
+            --green-dim:  rgba(0,255,0,0.07);
+            --green-lo:   rgba(0,255,0,0.12);
+            --green-glow: rgba(0,255,0,0.30);
+
+            --font-display: 'Nunito', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --nav-h: 160px; --r: 14px; --r-lg: 22px; --max: 1180px;
+            --glass-bg:     rgba(255,255,255,0.04);
+            --glass-border: rgba(255,255,255,0.08);
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        html { scroll-behavior: smooth; }
+        body { background: var(--black); color: var(--white); font-family: var(--font-body); font-size: 16px; line-height: 1.65; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        h1,h2,h3,h4 { font-family: var(--font-display); font-weight: 800; line-height: 1.1; }
+        h1 { font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: -0.02em; }
+        h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); letter-spacing: -0.02em; }
+        h3 { font-size: 1.2rem; font-weight: 700; }
+        p { color: var(--muted); }
+        a { text-decoration: none; color: inherit; }
+        .eyebrow { display: inline-block; font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 1rem; }
+        .container { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; padding: 0.85rem 1.75rem; border-radius: 8px; cursor: pointer; transition: all 0.2s var(--ease); border: none; white-space: nowrap; }
+        .btn-primary { background: var(--green); color: var(--black); }
+        .btn-primary:hover { background: #33ff33; box-shadow: 0 0 32px var(--green-glow); transform: translateY(-1px); }
+        .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border-mid); }
+        .btn-outline:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
+        .section { padding: 7rem 0; }
+
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); display: flex; align-items: center; background: rgba(0,0,0,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+        .nav-logo img { height: 288px; width: auto; filter: brightness(0) invert(1); }
+        .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+        .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); padding: 0.5rem 0.85rem; border-radius: 6px; transition: color 0.2s, background 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--white); background: rgba(255,255,255,0.05); }
+        .nav-links a.active { color: var(--green); background: var(--green-dim); }
+        .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+        .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+        .mobile-menu { display: none; position: fixed; inset: 0; z-index: 99; background: rgba(0,0,0,0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-family: var(--font-display); font-size: 1.75rem; font-weight: 800; color: var(--white); padding: 0.5rem 1rem; transition: color 0.2s; }
+        .mobile-menu a:hover { color: var(--green); }
+        .mobile-menu .btn { margin-top: 1rem; font-size: 1rem; padding: 1rem 2rem; }
+        .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; line-height: 1; }
+        @media (max-width: 768px) { .nav-links, .nav-actions .btn-outline { display: none; } .nav-hamburger { display: flex; } }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding: calc(var(--nav-h) + 5rem) 0 5rem;
+            border-bottom: 1px solid var(--border);
+            position: relative; overflow: hidden;
+        }
+        .page-hero::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+            background: radial-gradient(ellipse 60% 80% at 100% 50%, rgba(0,255,0,0.05) 0%, transparent 70%);
+        }
+        .page-hero-inner { max-width: 700px; position: relative; z-index: 1; }
+        .page-hero p { font-size: 1.1rem; margin-top: 1.25rem; max-width: 580px; }
+
+        /* PLATFORM NAV */
+        .platform-nav-bar {
+            position: sticky; top: var(--nav-h); z-index: 50;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem; overflow-x: auto;
+        }
+        .platform-nav-inner {
+            display: flex; gap: 0; max-width: var(--max); margin: 0 auto;
+        }
+        .platform-nav-link {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 1rem 1.25rem; white-space: nowrap;
+            font-size: 0.82rem; font-weight: 500; color: var(--muted);
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .platform-nav-link:hover { color: var(--white); }
+        .platform-nav-link.active { color: var(--green); border-color: var(--green); }
+        .platform-nav-link .pnl-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+        /* SERVICE SECTIONS */
+        .service-section {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border);
+            scroll-margin-top: calc(var(--nav-h) + 60px);
+        }
+        .service-layout {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 5rem; align-items: start;
+        }
+        .service-layout.reverse { direction: rtl; }
+        .service-layout.reverse > * { direction: ltr; }
+        .service-content h2 { margin-bottom: 1.25rem; }
+        .service-content p { margin-bottom: 1rem; font-size: 1rem; }
+        .service-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin: 1.5rem 0 2rem; }
+        .service-features li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; color: var(--muted); }
+        .feat-check { flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px; color: var(--green); }
+        .service-visual {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--r-lg); padding: 2.5rem;
+            position: relative; overflow: hidden;
+        }
+        .service-visual::before {
+            content: ''; position: absolute; top: -40px; right: -40px;
+            width: 160px; height: 160px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,255,0,0.1), transparent 70%);
+        }
+        .service-icon-lg {
+            width: 60px; height: 60px; border-radius: 16px;
+            background: var(--green-dim); border: 1px solid rgba(0,255,0,0.2);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .service-icon-lg svg { width: 28px; height: 28px; color: var(--green); }
+        .service-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-radius: var(--r); overflow: hidden; margin-top: 1.5rem; }
+        .service-stat { background: var(--black); padding: 1.25rem; }
+        .service-stat-val { font-family: var(--font-display); font-size: 2rem; font-weight: 900; color: var(--green); line-height: 1; }
+        .service-stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.25rem; }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+        .tag { padding: 0.35rem 0.85rem; border: 1px solid var(--border-mid); border-radius: 100px; font-size: 0.75rem; color: var(--muted); }
+        .tag.green { border-color: rgba(0,255,0,0.3); color: var(--green); background: var(--green-dim); }
+
+        /* AI SPECIAL SECTION */
+        .ai-highlight {
+            background: var(--card); border: 1px solid rgba(0,255,0,0.2);
+            border-radius: var(--r-lg); padding: 3rem;
+            position: relative; overflow: hidden;
+        }
+        .ai-highlight::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse 60% 60% at 100% 0%, rgba(0,255,0,0.06), transparent 70%);
+        }
+        .ai-highlight-inner { position: relative; z-index: 1; }
+        .ai-highlight h2 { margin-bottom: 1rem; }
+        .ai-highlight p { font-size: 1rem; margin-bottom: 1.5rem; }
+        .ai-caps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+        .ai-cap { padding: 1.5rem; background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: var(--r); }
+        .ai-cap-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--green-dim); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+        .ai-cap-icon svg { width: 18px; height: 18px; color: var(--green); }
+        .ai-cap h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+        .ai-cap p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+        /* OVERVIEW GRID */
+        .overview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+        .overview-card { background: var(--card); padding: 2rem 1.5rem; transition: background 0.2s; cursor: pointer; }
+        .overview-card:hover { background: var(--card-hover); }
+        .overview-card .oc-num { font-family: var(--font-display); font-size: 0.75rem; font-weight: 800; color: var(--green); letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+        .overview-card h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+        .overview-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+        .overview-card a { display: block; margin-top: 1rem; font-size: 0.78rem; color: var(--green); font-weight: 600; }
+
+        /* CTA */
+        .cta-bar { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 3.5rem; text-align: center; }
+        .cta-bar h2 { margin-bottom: 1rem; }
+        .cta-bar p { font-size: 1.05rem; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        /* REVEAL */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+
+        /* FOOTER */
+        footer { border-top: 1px solid var(--border); padding: 3rem 0 2rem; }
+        .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: var(--muted); }
+        .footer-logo img { height: 216px; width: auto; margin-bottom: 1rem; display: block; filter: brightness(0) invert(1); }
+        .footer-links { display: flex; gap: 2rem; }
+        .footer-links a { color: var(--muted); font-size: 0.82rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--white); }
+
+        @media (max-width: 1024px) { .overview-grid { grid-template-columns: repeat(2, 1fr); } .ai-caps-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) { .service-layout, .service-layout.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2.5rem; } .overview-grid { grid-template-columns: 1fr 1fr; } .ai-caps-grid { grid-template-columns: 1fr; } .section { padding: 4rem 0; } .service-section { padding: 4rem 0; } }
+        @media (max-width: 520px) { .overview-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a class="nav-logo" href="index.html">
+            <img src="nunu_Logo_High_Res_Asset.png" alt="nunu">
+        </a>
+        <ul class="nav-links">
+            <li><a href="platform.html" class="active">Platform</a></li>
+            <li><a href="index.html#solutions">Solutions</a></li>
+            <li><a href="index.html#ai-intelligence">AI Intelligence</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="contact-us.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a class="btn btn-outline" href="contact-us.html">Customer Login</a>
+            <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+        </div>
+        <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-close" id="mobile-close">&#215;</button>
+    <a href="platform.html">Platform</a>
+    <a href="index.html#solutions">Solutions</a>
+    <a href="index.html#ai-intelligence">AI Intelligence</a>
+    <a href="index.html#about">About</a>
+    <a href="contact-us.html">Contact</a>
+    <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <div class="container">
+        <div class="page-hero-inner">
+            <span class="eyebrow">The nunu Platform</span>
+            <h1>One architecture. One policy layer. One partner.</h1>
+            <p>Eight deeply integrated capabilities. No seams. No gaps. No excuses. Every component engineered to work together — and to keep working.</p>
+        </div>
+    </div>
+</div>
+
+<!-- PLATFORM NAV -->
+<div class="platform-nav-bar">
+    <div class="platform-nav-inner">
+        <a class="platform-nav-link active" href="#connectivity">
+            <span class="pnl-dot"></span> Connectivity
+        </a>
+        <a class="platform-nav-link" href="#voice">
+            <span class="pnl-dot"></span> Unified Voice
+        </a>
+        <a class="platform-nav-link" href="#contact-centre">
+            <span class="pnl-dot"></span> Contact Centre
+        </a>
+        <a class="platform-nav-link" href="#security">
+            <span class="pnl-dot"></span> Security
+        </a>
+        <a class="platform-nav-link" href="#memory">
+            <span class="pnl-dot"></span> Org. Memory
+        </a>
+        <a class="platform-nav-link" href="#ai" style="color:var(--green);">
+            <span class="pnl-dot"></span> AI Intelligence
+        </a>
+        <a class="platform-nav-link" href="#support">
+            <span class="pnl-dot"></span> Support
+        </a>
+        <a class="platform-nav-link" href="#infrastructure">
+            <span class="pnl-dot"></span> Infrastructure
+        </a>
+    </div>
+</div>
+
+<!-- PLATFORM OVERVIEW -->
+<section class="section" style="border-bottom: 1px solid var(--border);">
+    <div class="container">
+        <div style="text-align:center; max-width:620px; margin: 0 auto 4rem;" class="reveal">
+            <span class="eyebrow">Platform Overview</span>
+            <h2>Eight capabilities. One unified platform.</h2>
+            <p style="margin-top:1rem;">Built as a single integrated architecture — not a collection of acquired products stitched together. Every capability shares the same policy layer, the same audit trail, and the same support model.</p>
+        </div>
+        <div class="overview-grid reveal">
+            <div class="overview-card">
+                <div class="oc-num">01</div>
+                <h3>Connectivity Resilience</h3>
+                <p>Always-on network design for organisations that cannot go offline.</p>
+                <a href="#connectivity">Explore →</a>
+            </div>
+            <div class="overview-card">
+                <div class="oc-num">02</div>
+                <h3>Unified Voice</h3>
+                <p>One intelligent voice layer across every user, device and workflow.</p>
+                <a href="#voice">Explore →</a>
+            </div>
+            <div class="overview-card">
+                <div class="oc-num">03</div>
+                <h3>Contact Centre</h3>
+                <p>High-performance, omnichannel client experience without complexity.</p>
+                <a href="#contact-centre">Explore →</a>
+            </div>
+            <div class="overview-card">
+                <div class="oc-num">04</div>
+                <h3>Security &amp; Compliance</h3>
+                <p>A governed, auditable environment aligned with UK regulatory frameworks.</p>
+                <a href="#security">Explore →</a>
+            </div>
+            <div class="overview-card">
+                <div class="oc-num">05</div>
+                <h3>Organisational Memory</h3>
+                <p>Your entire communication history — captured, structured, and usable.</p>
+                <a href="#memory">Explore →</a>
+            </div>
+            <div class="overview-card" style="border-bottom: 2px solid var(--green);">
+                <div class="oc-num" style="color:var(--green);">06 · AI</div>
+                <h3 style="color:var(--green);">AI Conversation Intelligence</h3>
+                <p>Every conversation becomes intelligence. Every insight becomes advantage.</p>
+                <a href="#ai">Explore →</a>
+            </div>
+            <div class="overview-card">
+                <div class="oc-num">07</div>
+                <h3>Operational Clarity Support</h3>
+                <p>Proactive support that prevents issues rather than reacting to them.</p>
+                <a href="#support">Explore →</a>
+            </div>
+            <div class="overview-card">
+                <div class="oc-num">08</div>
+                <h3>Structural Reliability Engineering</h3>
+                <p>Infrastructure built for certainty — from cabling to data centre design.</p>
+                <a href="#infrastructure">Explore →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 01 CONNECTIVITY -->
+<section class="service-section" id="connectivity">
+    <div class="container">
+        <div class="service-layout">
+            <div class="service-content reveal">
+                <span class="eyebrow">01 · Connectivity Resilience</span>
+                <h2>Networks built for organisations that cannot afford to go dark.</h2>
+                <p>Downtime isn't just an inconvenience — it's lost revenue, lost clients, and lost trust. nunu designs and operates connectivity infrastructure with redundancy baked in at every layer, not added as an afterthought.</p>
+                <p>From SD-WAN and multi-carrier failover through to private circuit design, your connectivity is engineered to keep your business running when the unexpected happens.</p>
+                <ul class="service-features">
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Multi-carrier failover and SD-WAN architecture</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Real-time network health monitoring and alerting</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Dedicated and leased line options for critical sites</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 4G/5G backup as standard on resilience plans</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Quality of service prioritisation for voice and video</li>
+                </ul>
+                <a class="btn btn-primary" href="clarity-audit.html">Assess Your Connectivity</a>
+            </div>
+            <div class="service-visual reveal reveal-delay-2">
+                <div class="service-icon-lg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <h3 style="margin-bottom:0.5rem;">Resilience by design</h3>
+                <p style="font-size:0.87rem;color:var(--muted);margin-bottom:1.5rem;">Every nunu connectivity deployment is assessed against a resilience framework before go-live.</p>
+                <div class="service-stat-grid">
+                    <div class="service-stat">
+                        <div class="service-stat-val">99.99%</div>
+                        <div class="service-stat-label">Connectivity uptime SLA</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">&lt;30s</div>
+                        <div class="service-stat-label">Avg. failover time</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">24/7</div>
+                        <div class="service-stat-label">Network monitoring</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">Multi</div>
+                        <div class="service-stat-label">Carrier diversity</div>
+                    </div>
+                </div>
+                <div class="tag-row">
+                    <span class="tag">SD-WAN</span>
+                    <span class="tag">MPLS</span>
+                    <span class="tag">Leased Line</span>
+                    <span class="tag">4G/5G Backup</span>
+                    <span class="tag">QoS</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 02 VOICE -->
+<section class="service-section" id="voice" style="background: var(--card);">
+    <div class="container">
+        <div class="service-layout reverse">
+            <div class="service-content reveal">
+                <span class="eyebrow">02 · Unified Voice</span>
+                <h2>One intelligent voice layer across your entire organisation.</h2>
+                <p>Fragmented phone systems create fragmented experiences — for your team and your clients. nunu's Unified Voice platform brings every user, every device, and every workflow under a single, intelligently managed voice layer.</p>
+                <p>Cloud-native, mobile-ready, and deeply integrated with the rest of the nunu platform — including AI intelligence and organisational memory — from day one.</p>
+                <ul class="service-features">
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Cloud PBX with enterprise-grade call management</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Microsoft Teams and unified communications integration</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Mobile-first with softphone and BYOD support</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Auto-attendant, IVR, hunt groups and smart routing</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Full recording, transcription and AI analysis built in</li>
+                </ul>
+                <a class="btn btn-primary" href="clarity-audit.html">Explore Unified Voice</a>
+            </div>
+            <div class="service-visual reveal reveal-delay-2">
+                <div class="service-icon-lg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+                </div>
+                <h3 style="margin-bottom:0.5rem;">Built for modern work</h3>
+                <p style="font-size:0.87rem;color:var(--muted);margin-bottom:1.5rem;">Voice that works exactly the same whether your team is in the office, at home, or on the road.</p>
+                <div class="service-stat-grid">
+                    <div class="service-stat">
+                        <div class="service-stat-val">HD</div>
+                        <div class="service-stat-label">Crystal-clear voice quality</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">100%</div>
+                        <div class="service-stat-label">Calls recorded &amp; transcribed</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">Any</div>
+                        <div class="service-stat-label">Device, any location</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">AI</div>
+                        <div class="service-stat-label">Intelligence built in</div>
+                    </div>
+                </div>
+                <div class="tag-row">
+                    <span class="tag">Cloud PBX</span>
+                    <span class="tag">MS Teams</span>
+                    <span class="tag">Softphone</span>
+                    <span class="tag">IVR</span>
+                    <span class="tag">Recording</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 03 CONTACT CENTRE -->
+<section class="service-section" id="contact-centre">
+    <div class="container">
+        <div class="service-layout">
+            <div class="service-content reveal">
+                <span class="eyebrow">03 · Contact Centre</span>
+                <h2>Omnichannel client experience, without the operational complexity.</h2>
+                <p>The way clients want to reach you has changed. Phone, email, chat, social — they expect you to be everywhere, and to know who they are when they get through. nunu's Contact Centre delivers that, without the six-figure platform investment.</p>
+                <p>Built for mid-market and enterprise, with the intelligence and reporting capabilities your management team actually needs.</p>
+                <ul class="service-features">
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Omnichannel: voice, email, chat, SMS, social unified</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Intelligent skills-based and priority routing</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Real-time supervisor dashboards and wallboards</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> CRM integration for full client context on every call</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> AI-powered quality assurance across 100% of interactions</li>
+                </ul>
+                <a class="btn btn-primary" href="clarity-audit.html">Modernise Your Contact Centre</a>
+            </div>
+            <div class="service-visual reveal reveal-delay-2">
+                <div class="service-icon-lg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                </div>
+                <h3 style="margin-bottom:0.5rem;">Measurable client experience impact</h3>
+                <p style="font-size:0.87rem;color:var(--muted);margin-bottom:1.5rem;">Our clients see measurable improvements within 90 days of deployment.</p>
+                <div class="service-stat-grid">
+                    <div class="service-stat">
+                        <div class="service-stat-val">30–50%</div>
+                        <div class="service-stat-label">Fewer handling failures</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">20–40%</div>
+                        <div class="service-stat-label">Faster resolution times</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">100%</div>
+                        <div class="service-stat-label">Interactions captured</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">Live</div>
+                        <div class="service-stat-label">QA monitoring via AI</div>
+                    </div>
+                </div>
+                <div class="tag-row">
+                    <span class="tag">Omnichannel</span>
+                    <span class="tag">Skills Routing</span>
+                    <span class="tag">CRM Connect</span>
+                    <span class="tag">AI QA</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 04 SECURITY -->
+<section class="service-section" id="security" style="background: var(--card);">
+    <div class="container">
+        <div class="service-layout reverse">
+            <div class="service-content reveal">
+                <span class="eyebrow">04 · Security &amp; Compliance</span>
+                <h2>Governance built in, not bolted on.</h2>
+                <p>For regulated industries — financial services, legal, healthcare, local authority — communications compliance isn't optional. nunu's security and compliance framework is designed for environments where getting this wrong isn't an option.</p>
+                <p>Aligned with UK regulatory frameworks including FCA, ICO, and ISO standards, with a fully auditable environment across every interaction.</p>
+                <ul class="service-features">
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> End-to-end encryption across all communication channels</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> UK data residency — your data never leaves the UK</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> FCA, GDPR, and ISO 27001 aligned frameworks</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Automated retention, deletion, and legal hold policies</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> AI compliance monitoring across 100% of communications</li>
+                </ul>
+                <a class="btn btn-primary" href="clarity-audit.html">Review Your Compliance Posture</a>
+            </div>
+            <div class="service-visual reveal reveal-delay-2">
+                <div class="service-icon-lg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3 style="margin-bottom:0.5rem;">Always audit-ready</h3>
+                <p style="font-size:0.87rem;color:var(--muted);margin-bottom:1.5rem;">Compliance is a continuous state — not a quarterly exercise. nunu keeps you audit-ready 365 days a year.</p>
+                <div class="service-stat-grid">
+                    <div class="service-stat">
+                        <div class="service-stat-val">100%</div>
+                        <div class="service-stat-label">Communications auditable</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">UK</div>
+                        <div class="service-stat-label">Data residency guaranteed</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">E2E</div>
+                        <div class="service-stat-label">Encrypted by default</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">AI</div>
+                        <div class="service-stat-label">Breach detection at scale</div>
+                    </div>
+                </div>
+                <div class="tag-row">
+                    <span class="tag green">FCA Aligned</span>
+                    <span class="tag green">GDPR</span>
+                    <span class="tag green">ISO 27001</span>
+                    <span class="tag">Encryption</span>
+                    <span class="tag">Legal Hold</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 05 MEMORY -->
+<section class="service-section" id="memory">
+    <div class="container">
+        <div class="service-layout">
+            <div class="service-content reveal">
+                <span class="eyebrow">05 · Organisational Memory</span>
+                <h2>Your communications history — captured, structured, usable.</h2>
+                <p>Every conversation your organisation has ever had represents knowledge. Knowledge about your clients, your operations, your team's performance. But most organisations lose almost all of it. It exists in recordings nobody retrieves, emails nobody searches, and notes nobody takes.</p>
+                <p>nunu's Organisational Memory changes this. Everything is captured. Everything is structured. Everything is searchable — and now, with AI, everything is intelligible.</p>
+                <ul class="service-features">
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Automatic capture of voice, video, chat, and email</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> AI transcription with speaker identification</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Structured, searchable archive with smart tagging</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Configurable retention policies per channel and jurisdiction</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Legal hold, eDiscovery, and subject access request support</li>
+                </ul>
+                <a class="btn btn-primary" href="clarity-audit.html">Build Your Organisational Memory</a>
+            </div>
+            <div class="service-visual reveal reveal-delay-2">
+                <div class="service-icon-lg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                </div>
+                <h3 style="margin-bottom:0.5rem;">Institutional knowledge, preserved</h3>
+                <p style="font-size:0.87rem;color:var(--muted);margin-bottom:1.5rem;">When a team member leaves, their client knowledge stays. When a dispute arises, the record exists. Always.</p>
+                <div class="service-stat-grid">
+                    <div class="service-stat">
+                        <div class="service-stat-val">100%</div>
+                        <div class="service-stat-label">Interactions captured</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">AI</div>
+                        <div class="service-stat-label">Transcription &amp; tagging</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">7yr+</div>
+                        <div class="service-stat-label">Configurable retention</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">Instant</div>
+                        <div class="service-stat-label">Search &amp; retrieval</div>
+                    </div>
+                </div>
+                <div class="tag-row">
+                    <span class="tag">Transcription</span>
+                    <span class="tag">Smart Search</span>
+                    <span class="tag">eDiscovery</span>
+                    <span class="tag">Legal Hold</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 06 AI -->
+<section class="service-section" id="ai" style="background: var(--card);">
+    <div class="container">
+        <span class="eyebrow reveal">06 · AI Conversation Intelligence</span>
+        <div class="ai-highlight reveal" style="margin-top:1rem;">
+            <div class="ai-highlight-inner">
+                <h2>Every conversation becomes competitive intelligence.</h2>
+                <p>nunu's AI Conversation Intelligence isn't a separate product or a future roadmap item. It's the intelligence layer that runs natively across the entire platform — analysing every interaction, surfacing insight, monitoring compliance, and making your communications infrastructure progressively smarter over time.</p>
+                <p>Start with core UC. Add AI when you're ready. Or activate it from day one. Either way, it's already there — waiting.</p>
+                <div class="ai-caps-grid">
+                    <div class="ai-cap">
+                        <div class="ai-cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+                        <h3>Real-Time Analysis</h3>
+                        <p>Sentiment, intent, topic, and outcome tracking across every call and message as it happens.</p>
+                    </div>
+                    <div class="ai-cap">
+                        <div class="ai-cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                        <h3>Auto Summaries &amp; Actions</h3>
+                        <p>Every conversation automatically summarised. Key decisions and next steps extracted and assigned.</p>
+                    </div>
+                    <div class="ai-cap">
+                        <div class="ai-cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                        <h3>Performance Intelligence</h3>
+                        <p>Trends, patterns, and performance insights across teams, clients, and time periods.</p>
+                    </div>
+                    <div class="ai-cap">
+                        <div class="ai-cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                        <h3>Compliance Monitoring</h3>
+                        <p>Automated flagging of regulatory risk across 100% of communications. Always audit-ready.</p>
+                    </div>
+                    <div class="ai-cap">
+                        <div class="ai-cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+                        <h3>Coaching &amp; QA at Scale</h3>
+                        <p>Automated quality assurance across every agent interaction. Score, coach, and improve at scale.</p>
+                    </div>
+                    <div class="ai-cap">
+                        <div class="ai-cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+                        <h3>Semantic Search</h3>
+                        <p>Find any conversation, decision, or commitment across your entire communication history. Instantly.</p>
+                    </div>
+                </div>
+                <div style="margin-top:2.5rem;">
+                    <a class="btn btn-primary" href="clarity-audit.html">Activate AI Intelligence →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 07 SUPPORT -->
+<section class="service-section" id="support">
+    <div class="container">
+        <div class="service-layout">
+            <div class="service-content reveal">
+                <span class="eyebrow">07 · Operational Clarity Support</span>
+                <h2>Support that prevents problems, not just fixes them.</h2>
+                <p>Traditional support is reactive. Something breaks. You log a ticket. You wait. The problem is already costing you. nunu's Operational Clarity Support model is built differently — we monitor your environment continuously and intervene before issues become incidents.</p>
+                <p>When you do need to speak to someone, you reach a named engineer who knows your setup — not a generic helpdesk reading from a script.</p>
+                <ul class="service-features">
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 24/7 proactive monitoring across your entire platform</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Named account engineering team — not a call centre</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Contractual SLAs with financial penalties — we're accountable</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Monthly operational reviews with actionable insight</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Strategic planning support as your business evolves</li>
+                </ul>
+                <a class="btn btn-primary" href="contact-us.html">Talk to Our Team</a>
+            </div>
+            <div class="service-visual reveal reveal-delay-2">
+                <div class="service-icon-lg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h3 style="margin-bottom:0.5rem;">One team. Full ownership.</h3>
+                <p style="font-size:0.87rem;color:var(--muted);margin-bottom:1.5rem;">Your nunu team knows your environment inside out — because they helped build it.</p>
+                <div class="service-stat-grid">
+                    <div class="service-stat">
+                        <div class="service-stat-val">24/7</div>
+                        <div class="service-stat-label">Proactive monitoring</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">&lt;1hr</div>
+                        <div class="service-stat-label">P1 incident response SLA</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">Named</div>
+                        <div class="service-stat-label">Account engineers</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">Monthly</div>
+                        <div class="service-stat-label">Strategic reviews</div>
+                    </div>
+                </div>
+                <div class="tag-row">
+                    <span class="tag">Proactive</span>
+                    <span class="tag">Named Team</span>
+                    <span class="tag">SLA-Backed</span>
+                    <span class="tag">Strategic</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 08 INFRASTRUCTURE -->
+<section class="service-section" id="infrastructure" style="background: var(--card);">
+    <div class="container">
+        <div class="service-layout reverse">
+            <div class="service-content reveal">
+                <span class="eyebrow">08 · Structural Reliability Engineering</span>
+                <h2>Physical infrastructure built for certainty.</h2>
+                <p>Digital resilience requires physical foundations. Poor cabling, underpowered switching, inadequate rack design — these physical failures cascade into the digital problems that cost your business most. nunu's Structural Reliability Engineering covers everything from the cable in your wall to the data centre architecture your cloud services depend on.</p>
+                <ul class="service-features">
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Structured cabling design, supply, and certified installation</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Network switching, routing, and wireless infrastructure</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Data centre design and colocation advisory</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Server room environmental controls and power management</li>
+                    <li><svg class="feat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Infrastructure audit, design, and remediation</li>
+                </ul>
+                <a class="btn btn-primary" href="clarity-audit.html">Audit Your Infrastructure</a>
+            </div>
+            <div class="service-visual reveal reveal-delay-2">
+                <div class="service-icon-lg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <h3 style="margin-bottom:0.5rem;">The foundation everything else sits on</h3>
+                <p style="font-size:0.87rem;color:var(--muted);margin-bottom:1.5rem;">The most sophisticated software fails on poor physical infrastructure. We engineer the foundation first.</p>
+                <div class="service-stat-grid">
+                    <div class="service-stat">
+                        <div class="service-stat-val">Cat 6A</div>
+                        <div class="service-stat-label">Minimum cabling standard</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">Certified</div>
+                        <div class="service-stat-label">Installation engineers</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">Full</div>
+                        <div class="service-stat-label">Design-to-delivery</div>
+                    </div>
+                    <div class="service-stat">
+                        <div class="service-stat-val">Audited</div>
+                        <div class="service-stat-label">Pre and post-install</div>
+                    </div>
+                </div>
+                <div class="tag-row">
+                    <span class="tag">Cabling</span>
+                    <span class="tag">Switching</span>
+                    <span class="tag">WiFi</span>
+                    <span class="tag">Data Centre</span>
+                    <span class="tag">Power</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PLATFORM CTA -->
+<section class="section">
+    <div class="container">
+        <div class="cta-bar reveal">
+            <span class="eyebrow">Get Started</span>
+            <h2>Ready to see the platform in action?</h2>
+            <p>A nunu Clarity Audit gives you a clear, honest picture of your current communications infrastructure — and what a unified platform could deliver for your organisation.</p>
+            <div class="cta-actions">
+                <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit →</a>
+                <a class="btn btn-outline" href="contact-us.html">Request a Technical Demo</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-logo">
+            <img src="nunu_Logo_High_Res_Asset.png" alt="nunu">
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 nunu advanced technologies LTD. All rights reserved.</span>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="values.html">Values</a>
+                <a href="contact-us.html">Contact</a>
+                <a href="mailto:info@nunu.solutions">info@nunu.solutions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function(){
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileClose = document.getElementById('mobile-close');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => obs.observe(el));
+
+    // Platform nav active state on scroll
+    const sections = document.querySelectorAll('.service-section[id]');
+    const navLinks = document.querySelectorAll('.platform-nav-link');
+    const scrollObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if(e.isIntersecting){
+                navLinks.forEach(l => l.classList.remove('active'));
+                const active = document.querySelector(`.platform-nav-link[href="#${e.target.id}"]`);
+                if(active) active.classList.add('active');
+            }
+        });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(s => scrollObs.observe(s));
+})();
+</script>
+<script src="logo-loader.js"></script>
+</body>
+</html>

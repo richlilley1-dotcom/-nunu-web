@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Values — nunu</title>
+    <meta name="description" content="The principles that drive nunu advanced technologies. Accountability, clarity, engineering excellence and outcome-focused delivery.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --black: #000000; --white: #FFFFFF; --green: #00FF00; --light-gray: #F0F0F0; --dark-gray: #333333;
+            --surface: #0d0d0d; --card: #111111; --card-hover: #1a1a1a; --border: #333333; --border-mid: #444444; --muted: #888888;
+            --green-dim: rgba(0,255,0,0.07); --green-lo: rgba(0,255,0,0.12); --green-glow: rgba(0,255,0,0.30);
+            --font-display: 'Nunito', sans-serif; --font-body: 'Inter', sans-serif;
+            --nav-h: 160px; --r: 14px; --r-lg: 22px; --max: 1180px;
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        html { scroll-behavior: smooth; }
+        body { background: var(--black); color: var(--white); font-family: var(--font-body); font-size: 16px; line-height: 1.65; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        h1,h2,h3,h4 { font-family: var(--font-display); font-weight: 800; line-height: 1.1; }
+        h1 { font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: -0.02em; }
+        h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); letter-spacing: -0.02em; }
+        h3 { font-size: 1.2rem; font-weight: 700; }
+        p { color: var(--muted); }
+        a { text-decoration: none; color: inherit; }
+        .eyebrow { display: inline-block; font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 1rem; }
+        .container { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; padding: 0.85rem 1.75rem; border-radius: 8px; cursor: pointer; transition: all 0.2s var(--ease); border: none; white-space: nowrap; }
+        .btn-primary { background: var(--green); color: var(--black); }
+        .btn-primary:hover { background: #33ff33; box-shadow: 0 0 32px var(--green-glow); transform: translateY(-1px); }
+        .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border-mid); }
+        .btn-outline:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); display: flex; align-items: center; background: rgba(0,0,0,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+        .nav-logo img { height: 288px; width: auto; filter: brightness(0) invert(1); }
+        .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+        .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); padding: 0.5rem 0.85rem; border-radius: 6px; transition: color 0.2s, background 0.2s; }
+        .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+        .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+        .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+        .mobile-menu { display: none; position: fixed; inset: 0; z-index: 99; background: rgba(0,0,0,0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-family: var(--font-display); font-size: 1.75rem; font-weight: 800; color: var(--white); padding: 0.5rem 1rem; transition: color 0.2s; }
+        .mobile-menu a:hover { color: var(--green); }
+        .mobile-menu .btn { margin-top: 1rem; font-size: 1rem; padding: 1rem 2rem; }
+        .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; line-height: 1; }
+        @media (max-width: 768px) { .nav-links, .nav-actions .btn-outline { display: none; } .nav-hamburger { display: flex; } }
+
+        /* PAGE HERO */
+        .page-hero { padding: calc(var(--nav-h) + 5rem) 0 5rem; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+        .page-hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: radial-gradient(ellipse 60% 80% at 100% 50%, rgba(0,255,0,0.05) 0%, transparent 70%); }
+        .page-hero-inner { max-width: 700px; position: relative; z-index: 1; }
+        .page-hero p { font-size: 1.1rem; margin-top: 1.25rem; max-width: 580px; }
+
+        /* VALUES GRID */
+        .values-section { padding: 5rem 0; }
+        .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+        .value-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
+            padding: 2.5rem; transition: all 0.3s var(--ease); position: relative; overflow: hidden;
+        }
+        .value-card:hover { border-color: rgba(0,255,0,0.3); transform: translateY(-3px); box-shadow: 0 8px 40px rgba(0,255,0,0.06); }
+        .value-num { font-family: var(--font-display); font-weight: 900; font-size: 3rem; color: rgba(0,255,0,0.1); position: absolute; top: 1.5rem; right: 2rem; line-height: 1; }
+        .value-card h3 { font-size: 1.4rem; margin-bottom: 0.75rem; position: relative; }
+        .value-card p { font-size: 0.95rem; line-height: 1.7; position: relative; }
+        @media (max-width: 768px) { .values-grid { grid-template-columns: 1fr; } }
+
+        /* PROMISE */
+        .promise-section { padding: 5rem 0; border-top: 1px solid var(--border); }
+        .promise-content { max-width: 700px; margin: 0 auto; text-align: center; }
+        .promise-content h2 { margin-bottom: 1.5rem; }
+        .promise-content p { font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; }
+        .promise-content p:last-of-type { margin-bottom: 2.5rem; }
+
+        /* CTA */
+        .cta-section { text-align: center; padding: 6rem 0; position: relative; border-top: 1px solid var(--border); }
+        .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(0,255,0,0.06) 0%, transparent 70%); }
+        .cta-section h2 { margin-bottom: 1.25rem; position: relative; z-index: 1; }
+        .cta-section > .container > p { max-width: 500px; margin: 0 auto 2.5rem; position: relative; z-index: 1; font-size: 1.05rem; }
+        .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+        /* FOOTER */
+        footer { border-top: 1px solid var(--border); padding: 3rem 0; }
+        .footer-logo img { height: 216px; width: auto; margin-bottom: 1rem; display: block; filter: brightness(0) invert(1); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-bottom span { font-size: 0.8rem; color: var(--muted); }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a { font-size: 0.8rem; color: var(--muted); transition: color 0.2s; }
+        .footer-links a:hover { color: var(--green); }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a class="nav-logo" href="index.html"><img src="nunu_Logo_High_Res_Asset.png" alt="nunu"></a>
+        <ul class="nav-links">
+            <li><a href="platform.html">Platform</a></li>
+            <li><a href="index.html#solutions">Solutions</a></li>
+            <li><a href="index.html#ai-intelligence">AI Intelligence</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="contact-us.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a class="btn btn-outline" href="contact-us.html">Customer Login</a>
+            <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+        </div>
+        <button class="nav-hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-close" id="mobile-close">&#215;</button>
+    <a href="platform.html">Platform</a>
+    <a href="index.html#solutions">Solutions</a>
+    <a href="index.html#about">About</a>
+    <a href="contact-us.html">Contact</a>
+    <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <div class="container">
+        <div class="page-hero-inner">
+            <span class="eyebrow">Our Values</span>
+            <h1>What we stand for</h1>
+            <p>These aren't aspirations on a wall. They're the principles we use to make decisions, hire people, and build technology.</p>
+        </div>
+    </div>
+</div>
+
+<!-- VALUES -->
+<section class="values-section">
+    <div class="container">
+        <div class="values-grid">
+            <div class="value-card reveal">
+                <div class="value-num">01</div>
+                <h3>Accountability over excuses</h3>
+                <p>One partner. One escalation path. When something breaks, we own it — we don't point at someone else's SLA. Accountability means a named engineer picks up the phone, not a ticket queue.</p>
+            </div>
+            <div class="value-card reveal">
+                <div class="value-num">02</div>
+                <h3>Clarity over complexity</h3>
+                <p>Technology should simplify, not confuse. We explain what we're doing and why. Our reports are jargon-free. Our pricing is transparent. If you can't understand it, we haven't done our job.</p>
+            </div>
+            <div class="value-card reveal">
+                <div class="value-num">03</div>
+                <h3>Engineering over sales</h3>
+                <p>We lead with engineers, not account managers. Every recommendation is technically sound before it's commercially attractive. We'd rather lose a deal than sell something that doesn't work.</p>
+            </div>
+            <div class="value-card reveal">
+                <div class="value-num">04</div>
+                <h3>Outcomes over activity</h3>
+                <p>We don't measure success by tickets closed or calls answered. We measure it by whether your business is more resilient, more efficient, and more informed than it was before we arrived.</p>
+            </div>
+            <div class="value-card reveal">
+                <div class="value-num">05</div>
+                <h3>Integration over aggregation</h3>
+                <p>Anyone can resell five products. We engineer them to work as one. Shared policies, shared data, shared monitoring — because the gaps between systems are where failures hide.</p>
+            </div>
+            <div class="value-card reveal">
+                <div class="value-num">06</div>
+                <h3>Long-term over short-term</h3>
+                <p>We build relationships that last years, not quarters. That means honest advice even when it costs us revenue, and infrastructure designed for where you're going — not just where you are.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise-section">
+    <div class="container">
+        <div class="promise-content reveal">
+            <span class="eyebrow">Our promise</span>
+            <h2>Technology that works for your business — not the other way around</h2>
+            <p>Every enterprise deserves communications infrastructure that's reliable, secure, and intelligent. Not infrastructure you have to fight with, work around, or apologise for.</p>
+            <p>We exist because we believe UK businesses deserve a technology partner that's accountable, transparent, and technically excellent. That's what we're building at nunu.</p>
+            <div class="cta-actions">
+                <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+                <a class="btn btn-outline" href="contact-us.html">Talk to us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-logo"><img src="nunu_Logo_High_Res_Asset.png" alt="nunu"></div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 nunu advanced technologies LTD. All rights reserved.</span>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="values.html">Values</a>
+                <a href="contact-us.html">Contact</a>
+                <a href="mailto:info@nunu.solutions">info@nunu.solutions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function(){
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileClose = document.getElementById('mobile-close');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => obs.observe(el));
+})();
+</script>
+<script src="logo-loader.js"></script>
+</body>
+</html>
