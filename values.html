@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Values — nunu</title>
-    <meta name="description" content="The principles that drive nunu advanced technologies. Accountability, clarity, engineering excellence and outcome-focused delivery.">
+    <title>Our Values | nunu advanced technologies</title>
+    <meta name="description" content="Accountability, clarity, engineering excellence and outcome-focused delivery. The principles behind every decision at nunu.">
+    <link rel="canonical" href="https://nunu.solutions/values.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nunu.solutions/values.html">
+    <meta property="og:title" content="Our Values | nunu advanced technologies">
+    <meta property="og:description" content="Accountability, clarity, engineering excellence and outcome-focused delivery. The principles behind every decision at nunu.">
+    <meta property="og:image" content="https://nunu.solutions/nunu_Logo_High_Res_Asset.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Our Values | nunu advanced technologies">
+    <meta name="twitter:description" content="Accountability, clarity, engineering excellence and outcome-focused delivery. The principles behind every decision at nunu.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -61,7 +70,8 @@
         .page-hero p { font-size: 1.1rem; margin-top: 1.25rem; max-width: 580px; }
 
         /* VALUES GRID */
-        .values-section { padding: 5rem 0; }
+        .values-section { padding: 7rem 0; border-bottom: 1px solid var(--border); position: relative; }
+        .values-section::after { content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); width: 80px; height: 2px; background: var(--green); box-shadow: 0 0 12px rgba(0,255,0,0.3); }
         .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
         .value-card {
             background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
@@ -70,18 +80,18 @@
         .value-card:hover { border-color: rgba(0,255,0,0.3); transform: translateY(-3px); box-shadow: 0 8px 40px rgba(0,255,0,0.06); }
         .value-num { font-family: var(--font-display); font-weight: 900; font-size: 3rem; color: rgba(0,255,0,0.1); position: absolute; top: 1.5rem; right: 2rem; line-height: 1; }
         .value-card h3 { font-size: 1.4rem; margin-bottom: 0.75rem; position: relative; }
-        .value-card p { font-size: 0.95rem; line-height: 1.7; position: relative; }
+        .value-card p { font-size: 0.95rem; line-height: 1.8; position: relative; max-width: 440px; }
         @media (max-width: 768px) { .values-grid { grid-template-columns: 1fr; } }
 
         /* PROMISE */
-        .promise-section { padding: 5rem 0; border-top: 1px solid var(--border); }
+        .promise-section { padding: 7rem 0; border-top: 1px solid var(--border); }
         .promise-content { max-width: 700px; margin: 0 auto; text-align: center; }
         .promise-content h2 { margin-bottom: 1.5rem; }
         .promise-content p { font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; }
         .promise-content p:last-of-type { margin-bottom: 2.5rem; }
 
         /* CTA */
-        .cta-section { text-align: center; padding: 6rem 0; position: relative; border-top: 1px solid var(--border); }
+        .cta-section { text-align: center; padding: 7rem 0; position: relative; border-top: 1px solid var(--border); }
         .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(0,255,0,0.06) 0%, transparent 70%); }
         .cta-section h2 { margin-bottom: 1.25rem; position: relative; z-index: 1; }
         .cta-section > .container > p { max-width: 500px; margin: 0 auto 2.5rem; position: relative; z-index: 1; font-size: 1.05rem; }
@@ -125,13 +135,14 @@
     <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
 </div>
 
+<main>
 <!-- PAGE HERO -->
 <div class="page-hero">
     <div class="container">
         <div class="page-hero-inner">
             <span class="eyebrow">Our Values</span>
             <h1>What we stand for</h1>
-            <p>These aren't aspirations on a wall. They're the principles we use to make decisions, hire people, and build technology.</p>
+            <p>The principles we use to make decisions, hire people and build technology.</p>
         </div>
     </div>
 </div>
@@ -142,33 +153,33 @@
         <div class="values-grid">
             <div class="value-card reveal">
                 <div class="value-num">01</div>
-                <h3>Accountability over excuses</h3>
-                <p>One partner. One escalation path. When something breaks, we own it — we don't point at someone else's SLA. Accountability means a named engineer picks up the phone, not a ticket queue.</p>
+                <h3>Accountability</h3>
+                <p>When something breaks, a named engineer picks up the phone. Not a ticket queue, not someone else's SLA.</p>
             </div>
             <div class="value-card reveal">
                 <div class="value-num">02</div>
-                <h3>Clarity over complexity</h3>
-                <p>Technology should simplify, not confuse. We explain what we're doing and why. Our reports are jargon-free. Our pricing is transparent. If you can't understand it, we haven't done our job.</p>
+                <h3>Clarity</h3>
+                <p>Jargon-free reports. Transparent pricing. If you can't understand it, we haven't done our job.</p>
             </div>
             <div class="value-card reveal">
                 <div class="value-num">03</div>
-                <h3>Engineering over sales</h3>
-                <p>We lead with engineers, not account managers. Every recommendation is technically sound before it's commercially attractive. We'd rather lose a deal than sell something that doesn't work.</p>
+                <h3>Engineering first</h3>
+                <p>Every recommendation is technically sound before it's commercially attractive. We'd rather lose a deal than sell something that doesn't work.</p>
             </div>
             <div class="value-card reveal">
                 <div class="value-num">04</div>
-                <h3>Outcomes over activity</h3>
-                <p>We don't measure success by tickets closed or calls answered. We measure it by whether your business is more resilient, more efficient, and more informed than it was before we arrived.</p>
+                <h3>Outcomes that matter</h3>
+                <p>Success means your business is more resilient, more efficient and better informed. Not just more tickets closed.</p>
             </div>
             <div class="value-card reveal">
                 <div class="value-num">05</div>
-                <h3>Integration over aggregation</h3>
-                <p>Anyone can resell five products. We engineer them to work as one. Shared policies, shared data, shared monitoring — because the gaps between systems are where failures hide.</p>
+                <h3>True integration</h3>
+                <p>Anyone can resell five products. We engineer them to work as one. The gaps between systems are where failures hide.</p>
             </div>
             <div class="value-card reveal">
                 <div class="value-num">06</div>
-                <h3>Long-term over short-term</h3>
-                <p>We build relationships that last years, not quarters. That means honest advice even when it costs us revenue, and infrastructure designed for where you're going — not just where you are.</p>
+                <h3>Long-term thinking</h3>
+                <p>Honest advice even when it costs us revenue. Infrastructure designed for where you're going, not just where you are.</p>
             </div>
         </div>
     </div>
@@ -179,9 +190,9 @@
     <div class="container">
         <div class="promise-content reveal">
             <span class="eyebrow">Our promise</span>
-            <h2>Technology that works for your business — not the other way around</h2>
-            <p>Every enterprise deserves communications infrastructure that's reliable, secure, and intelligent. Not infrastructure you have to fight with, work around, or apologise for.</p>
-            <p>We exist because we believe UK businesses deserve a technology partner that's accountable, transparent, and technically excellent. That's what we're building at nunu.</p>
+            <h2>Technology that works for your business</h2>
+            <p>Reliable, secure, intelligent communications infrastructure. Not something you fight with, work around or apologise for.</p>
+            <p>UK businesses deserve a technology partner that's accountable, transparent and technically excellent. That's what we're building.</p>
             <div class="cta-actions">
                 <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
                 <a class="btn btn-outline" href="contact-us.html">Talk to us</a>
@@ -189,6 +200,8 @@
         </div>
     </div>
 </section>
+
+</main>
 
 <!-- FOOTER -->
 <footer>
