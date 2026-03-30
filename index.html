@@ -95,6 +95,21 @@
         .reveal-delay-2 { transition-delay: 0.2s; }
         .reveal-delay-3 { transition-delay: 0.3s; }
 
+        /* CURSOR GLOW */
+        .cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,255,0,0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+        .cursor-glow.active { opacity: 1; }
+
         /* GLOBAL POLISH */
         ::selection { background: rgba(0,255,0,0.25); color: var(--white); }
         html { scrollbar-width: thin; scrollbar-color: rgba(0,255,0,0.3) transparent; }
@@ -102,6 +117,22 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(0,255,0,0.3); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(0,255,0,0.5); }
+
+        /* PAGE TRANSITIONS */
+        body {
+            animation: page-fade-in 0.4s var(--ease) both;
+        }
+        @keyframes page-fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        body.page-leaving {
+            animation: page-fade-out 0.25s var(--ease) both;
+        }
+        @keyframes page-fade-out {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
 
         /* NAV */
         nav {
@@ -385,7 +416,16 @@
             border-top: 3px solid rgba(0,255,0,0.4);
             border-radius: 14px;
             padding: 2rem;
+            position: relative;
             transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .cap-link { position: static; }
+        .cap-link::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            border-radius: 14px;
         }
         .cap-card:hover {
             border-top-color: var(--green);
@@ -663,6 +703,7 @@
     </script>
 </head>
 <body>
+<div class="cursor-glow" id="cursor-glow"></div>
 
 <!-- NAV -->
 <nav>
@@ -1110,6 +1151,30 @@
                 ticking = true;
             }
         });
+    }
+
+    // Smooth page transitions
+    document.querySelectorAll('a[href]').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('http') && !href.startsWith('#') && href !== '') {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('href');
+                document.body.classList.add('page-leaving');
+                setTimeout(() => { window.location.href = target; }, 250);
+            });
+        }
+    });
+    // Cursor glow
+    const glow = document.getElementById('cursor-glow');
+    if (glow) {
+        let glowActive = false;
+        document.addEventListener('mousemove', (e) => {
+            if (!glowActive) { glow.classList.add('active'); glowActive = true; }
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+        document.addEventListener('mouseleave', () => { glow.classList.remove('active'); glowActive = false; });
     }
 })();
 </script>
