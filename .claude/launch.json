@@ -5,7 +5,8 @@
       "name": "nunu-site",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["/tmp/nunu-serve.py"],
-      "port": 8765
+      "port": 8765,
+      "autoPort": true
     }
   ]
 }

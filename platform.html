@@ -20,59 +20,115 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         :root {
-            /* ── Brand colours (brand guidelines) ── */
-            --black:      #000000;
-            --white:      #FFFFFF;
-            --green:      #00FF00;
-            --light-gray: #F0F0F0;
-            --dark-gray:  #333333;
-
-            /* ── Dark theme surfaces (derived) ── */
-            --surface:    #0d0d0d;
-            --card:       #111111;
-            --card-hover: #1a1a1a;
-            --border:     #333333;
-            --border-mid: #444444;
-            --muted:      #888888;
-
-            /* ── Green tints ── */
-            --green-dim:  rgba(0,255,0,0.07);
-            --green-lo:   rgba(0,255,0,0.12);
-            --green-glow: rgba(0,255,0,0.30);
-
+            --black: #000000;
+            --white: #FFFFFF;
+            --green: #00FF00;
+            --muted: #888888;
+            --border: #333333;
+            --card-bg: #111111;
             --font-display: 'Nunito', sans-serif;
             --font-body: 'Inter', sans-serif;
-            --nav-h: 160px; --r: 14px; --r-lg: 22px; --max: 1180px;
-            --glass-bg:     rgba(255,255,255,0.04);
-            --glass-border: rgba(255,255,255,0.08);
+            --nav-h: 160px;
+            --max: 1180px;
             --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
+
         html { scroll-behavior: smooth; }
-        body { background: var(--black); color: var(--white); font-family: var(--font-body); font-size: 16px; line-height: 1.65; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-        h1,h2,h3,h4 { font-family: var(--font-display); font-weight: 800; line-height: 1.1; }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; line-height: 1.1; }
         h1 { font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: -0.02em; }
         h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); letter-spacing: -0.02em; }
         h3 { font-size: 1.2rem; font-weight: 700; }
         p { color: var(--muted); }
         a { text-decoration: none; color: inherit; }
-        .eyebrow { display: inline-block; font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 1rem; }
+
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+
         .container { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
-        .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; padding: 0.85rem 1.75rem; border-radius: 8px; cursor: pointer; transition: all 0.2s var(--ease); border: none; white-space: nowrap; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.85rem 1.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s var(--ease);
+            border: none;
+            white-space: nowrap;
+        }
+
         .btn-primary { background: var(--green); color: var(--black); }
-        .btn-primary:hover { background: #33ff33; box-shadow: 0 0 32px var(--green-glow); transform: translateY(-1px); }
-        .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border-mid); }
+        .btn-primary:hover { background: #33ff33; box-shadow: 0 0 32px rgba(0,255,0,0.3); transform: translateY(-1px); }
+        .btn-outline { background: transparent; color: var(--white); border: 1px solid #444; }
         .btn-outline:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
-        .section { padding: 7rem 0; }
+
+        /* REVEAL ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
 
         /* NAV */
-        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); display: flex; align-items: center; background: rgba(0,0,0,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-        .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
         .nav-logo img { height: 288px; width: auto; filter: brightness(0) invert(1); }
         .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
-        .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); padding: 0.5rem 0.85rem; border-radius: 6px; transition: color 0.2s, background 0.2s; white-space: nowrap; }
-        .nav-links a:hover, .nav-links a.active { color: var(--white); background: rgba(255,255,255,0.05); }
-        .nav-links a.active { color: var(--green); background: var(--green-dim); }
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--muted);
+            padding: 0.5rem 0.85rem;
+            border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
+            white-space: nowrap;
+        }
+        .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+        .nav-links a.active { color: var(--green); background: rgba(0,255,0,0.07); }
         .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
         .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
         .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
@@ -82,28 +138,64 @@
         .mobile-menu a:hover { color: var(--green); }
         .mobile-menu .btn { margin-top: 1rem; font-size: 1rem; padding: 1rem 2rem; }
         .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; line-height: 1; }
-        @media (max-width: 768px) { .nav-links, .nav-actions .btn-outline { display: none; } .nav-hamburger { display: flex; } }
 
-        /* PAGE HERO */
+        @media (max-width: 768px) {
+            .nav-links, .nav-actions .btn-outline { display: none; }
+            .nav-hamburger { display: flex; }
+        }
+
+        /* PAGE HERO with planet arc glow */
         .page-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
             padding: calc(var(--nav-h) + 5rem) 0 5rem;
+            background: var(--black);
             border-bottom: 1px solid var(--border);
-            position: relative; overflow: hidden;
         }
         .page-hero::before {
-            content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%;
-            background: radial-gradient(ellipse 60% 80% at 100% 50%, rgba(0,255,0,0.05) 0%, transparent 70%);
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: radial-gradient(circle 60vw at 0% 100%, rgba(0,255,0,0.28) 0%, rgba(0,150,0,0.08) 55%, transparent 75%);
+        }
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -155vw;
+            left: -130vw;
+            width: 195vw;
+            height: 195vw;
+            border-radius: 50%;
+            z-index: 0;
+            box-shadow:
+                0 -1px 0 rgba(0,255,0,0.7),
+                0 -2px 6px rgba(0,255,0,0.4),
+                0 -6px 18px rgba(0,255,0,0.25),
+                0 -14px 50px rgba(0,255,0,0.12),
+                0 -30px 100px rgba(0,255,0,0.05);
         }
         .page-hero-inner { max-width: 700px; position: relative; z-index: 1; }
-        .page-hero p { font-size: 1.1rem; margin-top: 1.25rem; max-width: 580px; }
+        .page-hero-inner h1 { margin-bottom: 1.25rem; }
+        .page-hero-inner h1 span { color: var(--green); }
+        .page-hero p { font-size: 1.15rem; color: var(--muted); line-height: 1.7; max-width: 580px; }
 
         /* PLATFORM NAV */
         .platform-nav-bar {
             position: sticky; top: var(--nav-h); z-index: 50;
             background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             padding: 0 2rem; overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0,255,0,0.3) transparent;
         }
+        .platform-nav-bar::-webkit-scrollbar { height: 4px; }
+        .platform-nav-bar::-webkit-scrollbar-track { background: transparent; }
+        .platform-nav-bar::-webkit-scrollbar-thumb { background: rgba(0,255,0,0.3); border-radius: 2px; }
         .platform-nav-inner {
             display: flex; gap: 0; max-width: var(--max); margin: 0 auto;
         }
@@ -118,12 +210,33 @@
         .platform-nav-link.active { color: var(--green); border-color: var(--green); }
         .platform-nav-link .pnl-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
+        /* OVERVIEW GRID */
+        .overview-section { padding: 7rem 0; border-bottom: 1px solid var(--border); }
+        .overview-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 1px; background: var(--border);
+            border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+        }
+        .overview-card {
+            background: var(--card-bg); padding: 2rem 1.5rem;
+            transition: background 0.2s; cursor: pointer;
+        }
+        .overview-card:hover { background: #1a1a1a; }
+        .overview-card .oc-num {
+            font-family: var(--font-display); font-size: 0.75rem; font-weight: 800;
+            color: var(--green); letter-spacing: 0.1em; margin-bottom: 0.75rem;
+        }
+        .overview-card h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+        .overview-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+        .overview-card a { display: block; margin-top: 1rem; font-size: 0.78rem; color: var(--green); font-weight: 600; }
+
         /* SERVICE SECTIONS */
         .service-section {
             padding: 6rem 0;
             border-bottom: 1px solid var(--border);
             scroll-margin-top: calc(var(--nav-h) + 60px);
         }
+        .service-section.alt-bg { background: var(--card-bg); }
         .service-layout {
             display: grid; grid-template-columns: 1fr 1fr;
             gap: 5rem; align-items: start;
@@ -136,8 +249,8 @@
         .service-features li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; color: var(--muted); }
         .feat-check { flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px; color: var(--green); }
         .service-visual {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: var(--r-lg); padding: 2.5rem;
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 14px; padding: 2.5rem;
             position: relative; overflow: hidden;
         }
         .service-visual::before {
@@ -147,29 +260,41 @@
         }
         .service-icon-lg {
             width: 60px; height: 60px; border-radius: 16px;
-            background: var(--green-dim); border: 1px solid rgba(0,255,0,0.2);
+            background: rgba(0,255,0,0.08); border: 1px solid rgba(0,255,0,0.2);
             display: flex; align-items: center; justify-content: center;
             margin-bottom: 1.5rem;
         }
         .service-icon-lg svg { width: 28px; height: 28px; color: var(--green); }
-        .service-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-radius: var(--r); overflow: hidden; margin-top: 1.5rem; }
+        .service-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-radius: 14px; overflow: hidden; margin-top: 1.5rem; }
         .service-stat { background: var(--black); padding: 1.25rem; }
         .service-stat-val { font-family: var(--font-display); font-size: 2rem; font-weight: 900; color: var(--green); line-height: 1; }
         .service-stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.25rem; }
         .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
-        .tag { padding: 0.35rem 0.85rem; border: 1px solid var(--border-mid); border-radius: 100px; font-size: 0.75rem; color: var(--muted); }
-        .tag.green { border-color: rgba(0,255,0,0.3); color: var(--green); background: var(--green-dim); }
+        .tag { padding: 0.35rem 0.85rem; border: 1px solid #444; border-radius: 100px; font-size: 0.75rem; color: var(--muted); }
+        .tag.green { border-color: rgba(0,255,0,0.3); color: var(--green); background: rgba(0,255,0,0.07); }
 
-        /* KEY FINDING CALLOUT */
-        .key-finding { border-left: 2px solid rgba(0,255,0,0.4); padding: 1rem 1.25rem; margin: 1.5rem 0; background: rgba(0,255,0,0.03); border-radius: 0 8px 8px 0; }
+        /* KEY FINDING CALLOUT — green top-border card style from Mockup C evidence cards */
+        .key-finding {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-top: 3px solid rgba(0,255,0,0.4);
+            border-radius: 14px;
+            padding: 1.5rem 1.5rem;
+            margin: 1.5rem 0;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .key-finding:hover {
+            border-top-color: var(--green);
+            box-shadow: 0 0 30px rgba(0,255,0,0.08);
+        }
         .key-finding-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); font-weight: 600; margin-bottom: 0.35rem; }
         .key-finding-stat { font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: var(--white); line-height: 1.2; }
         .key-finding-context { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
 
         /* AI SPECIAL SECTION */
         .ai-highlight {
-            background: var(--card); border: 1px solid rgba(0,255,0,0.2);
-            border-radius: var(--r-lg); padding: 3rem;
+            background: var(--card-bg); border: 1px solid rgba(0,255,0,0.2);
+            border-radius: 14px; padding: 3rem;
             position: relative; overflow: hidden;
         }
         .ai-highlight::before {
@@ -180,48 +305,114 @@
         .ai-highlight h2 { margin-bottom: 1rem; }
         .ai-highlight p { font-size: 1rem; margin-bottom: 1.5rem; }
         .ai-caps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
-        .ai-cap { padding: 1.5rem; background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: var(--r); }
-        .ai-cap-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--green-dim); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+        .ai-cap { padding: 1.5rem; background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 14px; }
+        .ai-cap-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(0,255,0,0.08); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
         .ai-cap-icon svg { width: 18px; height: 18px; color: var(--green); }
         .ai-cap h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
         .ai-cap p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
 
-        /* OVERVIEW GRID */
-        .overview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
-        .overview-card { background: var(--card); padding: 2rem 1.5rem; transition: background 0.2s; cursor: pointer; }
-        .overview-card:hover { background: var(--card-hover); }
-        .overview-card .oc-num { font-family: var(--font-display); font-size: 0.75rem; font-weight: 800; color: var(--green); letter-spacing: 0.1em; margin-bottom: 0.75rem; }
-        .overview-card h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
-        .overview-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
-        .overview-card a { display: block; margin-top: 1rem; font-size: 0.78rem; color: var(--green); font-weight: 600; }
-
         /* CTA */
-        .cta-bar { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 3.5rem; text-align: center; }
-        .cta-bar h2 { margin-bottom: 1rem; }
-        .cta-bar p { font-size: 1.05rem; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
-        .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-        /* REVEAL */
-        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
+        .cta-section {
+            padding: 7rem 0 5rem;
+            text-align: center;
+            position: relative;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,255,0,0.2), transparent);
+        }
+        .cta-section h2 {
+            margin-bottom: 1rem;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-sub {
+            font-size: 1.05rem;
+            max-width: 520px;
+            margin: 0 auto 2.5rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .cta-teaser {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+        }
 
         /* FOOTER */
-        footer { border-top: 1px solid var(--border); padding: 3rem 0 2rem; }
-        .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: var(--muted); }
-        .footer-logo img { height: 216px; width: auto; margin-bottom: 1rem; display: block; filter: brightness(0) invert(1); }
-        .footer-links { display: flex; gap: 2rem; }
-        .footer-links a { color: var(--muted); font-size: 0.82rem; transition: color 0.2s; }
-        .footer-links a:hover { color: var(--green); }
+        footer {
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border);
+        }
+        .footer-inner {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .footer-logo img {
+            height: 216px;
+            width: auto;
+            margin-bottom: 1rem;
+            display: block;
+            filter: brightness(0) invert(1);
+        }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--white); }
+        .footer-copy {
+            width: 100%;
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: #555;
+        }
 
-        @media (max-width: 1024px) { .overview-grid { grid-template-columns: repeat(2, 1fr); } .ai-caps-grid { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 768px) { .service-layout, .service-layout.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2.5rem; } .overview-grid { grid-template-columns: 1fr 1fr; } .ai-caps-grid { grid-template-columns: 1fr; } .section { padding: 4rem 0; } .service-section { padding: 4rem 0; } }
-        @media (max-width: 520px) { .overview-grid { grid-template-columns: 1fr; } }
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .overview-grid { grid-template-columns: repeat(2, 1fr); }
+            .ai-caps-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .service-layout, .service-layout.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2.5rem; }
+            .overview-grid { grid-template-columns: 1fr 1fr; }
+            .ai-caps-grid { grid-template-columns: 1fr; }
+            .service-section { padding: 4rem 0; }
+            .overview-section { padding: 4rem 0; }
+            .page-hero { min-height: auto; padding: calc(var(--nav-h) + 3rem) 0 3rem; }
+            .page-hero-inner h1 { font-size: clamp(1.8rem, 6vw, 2.4rem); }
+        }
+        @media (max-width: 520px) {
+            .overview-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
     <div class="nav-inner">
         <a class="nav-logo" href="index.html">
@@ -229,41 +420,43 @@
         </a>
         <ul class="nav-links">
             <li><a href="platform.html" class="active">Platform</a></li>
-            <li><a href="index.html#solutions">Solutions</a></li>
+            <li><a href="clarity-audit.html">Clarity Audit</a></li>
             <li><a href="index.html#ai-intelligence">AI Intelligence</a></li>
-            <li><a href="index.html#about">About</a></li>
+            <li><a href="values.html">About</a></li>
             <li><a href="contact-us.html">Contact</a></li>
         </ul>
         <div class="nav-actions">
-            <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+            <a href="clarity-audit.html" class="btn btn-outline" style="font-size:0.8rem; padding:0.6rem 1.2rem;">Book a Clarity Audit</a>
+            <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
-        <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
-            <span></span><span></span><span></span>
-        </button>
     </div>
 </nav>
 
-<div class="mobile-menu" id="mobile-menu">
-    <button class="mobile-close" id="mobile-close" aria-label="Close menu">&#215;</button>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">&times;</button>
     <a href="platform.html">Platform</a>
-    <a href="index.html#solutions">Solutions</a>
+    <a href="clarity-audit.html">Clarity Audit</a>
     <a href="index.html#ai-intelligence">AI Intelligence</a>
-    <a href="index.html#about">About</a>
+    <a href="values.html">About</a>
     <a href="contact-us.html">Contact</a>
-    <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+    <a href="clarity-audit.html" class="btn btn-primary">Book a Clarity Audit</a>
 </div>
 
 <main>
-<!-- PAGE HERO -->
-<div class="page-hero">
+
+<!-- PAGE HERO with planet arc glow -->
+<section class="page-hero">
     <div class="container">
         <div class="page-hero-inner">
             <span class="eyebrow">The nunu Platform</span>
-            <h1>One architecture. One policy layer. One partner.</h1>
+            <h1>One architecture. One policy layer. <span>One partner.</span></h1>
             <p>Eight integrated capabilities engineered to work together. No seams, no gaps.</p>
         </div>
     </div>
-</div>
+</section>
 
 <!-- PLATFORM NAV -->
 <div class="platform-nav-bar">
@@ -296,7 +489,7 @@
 </div>
 
 <!-- PLATFORM OVERVIEW -->
-<section class="section" style="border-bottom: 1px solid var(--border);">
+<section class="overview-section">
     <div class="container">
         <div style="text-align:center; max-width:620px; margin: 0 auto 4rem;" class="reveal">
             <span class="eyebrow">Platform Overview</span>
@@ -308,49 +501,49 @@
                 <div class="oc-num">01</div>
                 <h3>Connectivity Resilience</h3>
                 <p>Always-on network design for organisations that cannot go offline.</p>
-                <a href="#connectivity">Explore →</a>
+                <a href="#connectivity">Explore &rarr;</a>
             </div>
             <div class="overview-card">
                 <div class="oc-num">02</div>
                 <h3>Unified Voice</h3>
                 <p>One intelligent voice layer across every user, device and workflow.</p>
-                <a href="#voice">Explore →</a>
+                <a href="#voice">Explore &rarr;</a>
             </div>
             <div class="overview-card">
                 <div class="oc-num">03</div>
                 <h3>Contact Centre</h3>
                 <p>High-performance, omnichannel client experience without complexity.</p>
-                <a href="#contact-centre">Explore →</a>
+                <a href="#contact-centre">Explore &rarr;</a>
             </div>
             <div class="overview-card">
                 <div class="oc-num">04</div>
                 <h3>Security &amp; Compliance</h3>
                 <p>A governed, auditable environment aligned with UK regulatory frameworks.</p>
-                <a href="#security">Explore →</a>
+                <a href="#security">Explore &rarr;</a>
             </div>
             <div class="overview-card">
                 <div class="oc-num">05</div>
                 <h3>Organisational Memory</h3>
                 <p>Your entire communication history — captured, structured, and usable.</p>
-                <a href="#memory">Explore →</a>
+                <a href="#memory">Explore &rarr;</a>
             </div>
             <div class="overview-card" style="border-bottom: 2px solid var(--green);">
-                <div class="oc-num" style="color:var(--green);">06 · AI</div>
+                <div class="oc-num" style="color:var(--green);">06 &middot; AI</div>
                 <h3 style="color:var(--green);">AI Conversation Intelligence</h3>
                 <p>Every conversation becomes intelligence. Every insight becomes advantage.</p>
-                <a href="#ai">Explore →</a>
+                <a href="#ai">Explore &rarr;</a>
             </div>
             <div class="overview-card">
                 <div class="oc-num">07</div>
                 <h3>Operational Clarity Support</h3>
                 <p>Proactive support that prevents issues rather than reacting to them.</p>
-                <a href="#support">Explore →</a>
+                <a href="#support">Explore &rarr;</a>
             </div>
             <div class="overview-card">
                 <div class="oc-num">08</div>
                 <h3>Structural Reliability Engineering</h3>
                 <p>Infrastructure built for certainty — from cabling to data centre design.</p>
-                <a href="#infrastructure">Explore →</a>
+                <a href="#infrastructure">Explore &rarr;</a>
             </div>
         </div>
     </div>
@@ -361,7 +554,7 @@
     <div class="container">
         <div class="service-layout">
             <div class="service-content reveal">
-                <span class="eyebrow">01 · Connectivity Resilience</span>
+                <span class="eyebrow">01 &middot; Connectivity Resilience</span>
                 <h2>Networks built for organisations that can't go dark.</h2>
                 <p>Redundancy at every layer, not as an afterthought. SD-WAN, multi-carrier failover and private circuit design to keep your business running.</p>
                 <div class="key-finding">
@@ -413,11 +606,11 @@
 </section>
 
 <!-- 02 VOICE -->
-<section class="service-section" id="voice" style="background: var(--card);">
+<section class="service-section alt-bg" id="voice">
     <div class="container">
         <div class="service-layout reverse">
             <div class="service-content reveal">
-                <span class="eyebrow">02 · Unified Voice</span>
+                <span class="eyebrow">02 &middot; Unified Voice</span>
                 <h2>One voice layer across your entire organisation.</h2>
                 <p>Every user, device and workflow under a single managed voice platform. Cloud-native, mobile-ready, integrated with AI and organisational memory from day one.</p>
                 <div class="key-finding">
@@ -473,7 +666,7 @@
     <div class="container">
         <div class="service-layout">
             <div class="service-content reveal">
-                <span class="eyebrow">03 · Contact Centre</span>
+                <span class="eyebrow">03 &middot; Contact Centre</span>
                 <h2>Omnichannel client experience without the complexity.</h2>
                 <p>Clients expect you everywhere and want you to know who they are. Voice, email, chat, SMS and social in one view, built for mid-market and enterprise.</p>
                 <div class="key-finding">
@@ -496,11 +689,11 @@
                 <p style="font-size:0.87rem;color:var(--muted);margin-bottom:1.5rem;">Our clients see measurable improvements within 90 days of deployment.</p>
                 <div class="service-stat-grid">
                     <div class="service-stat">
-                        <div class="service-stat-val">30–50%</div>
+                        <div class="service-stat-val">30-50%</div>
                         <div class="service-stat-label">Fewer handling failures</div>
                     </div>
                     <div class="service-stat">
-                        <div class="service-stat-val">20–40%</div>
+                        <div class="service-stat-val">20-40%</div>
                         <div class="service-stat-label">Faster resolution times</div>
                     </div>
                     <div class="service-stat">
@@ -524,11 +717,11 @@
 </section>
 
 <!-- 04 SECURITY -->
-<section class="service-section" id="security" style="background: var(--card);">
+<section class="service-section alt-bg" id="security">
     <div class="container">
         <div class="service-layout reverse">
             <div class="service-content reveal">
-                <span class="eyebrow">04 · Security &amp; Compliance</span>
+                <span class="eyebrow">04 &middot; Security &amp; Compliance</span>
                 <h2>Governance built in, not bolted on.</h2>
                 <p>For financial services, legal, healthcare and local authority. Aligned with FCA, ICO and ISO standards, fully auditable across every interaction.</p>
                 <div class="key-finding">
@@ -584,7 +777,7 @@
     <div class="container">
         <div class="service-layout">
             <div class="service-content reveal">
-                <span class="eyebrow">05 · Organisational Memory</span>
+                <span class="eyebrow">05 &middot; Organisational Memory</span>
                 <h2>Your communications history, captured and searchable.</h2>
                 <p>Most organisations lose the knowledge locked in calls, emails and chats. nunu captures everything, structures it, and makes it searchable with AI.</p>
                 <div class="key-finding">
@@ -635,9 +828,9 @@
 </section>
 
 <!-- 06 AI -->
-<section class="service-section" id="ai" style="background: var(--card);">
+<section class="service-section alt-bg" id="ai">
     <div class="container">
-        <span class="eyebrow reveal">06 · AI Conversation Intelligence</span>
+        <span class="eyebrow reveal">06 &middot; AI Conversation Intelligence</span>
         <div class="ai-highlight reveal" style="margin-top:1rem;">
             <div class="ai-highlight-inner">
                 <h2>Every conversation becomes competitive intelligence.</h2>
@@ -680,7 +873,7 @@
                     </div>
                 </div>
                 <div style="margin-top:2.5rem;">
-                    <a class="btn btn-primary" href="clarity-audit.html">Activate AI Intelligence →</a>
+                    <a class="btn btn-primary" href="clarity-audit.html">Activate AI Intelligence &rarr;</a>
                 </div>
             </div>
         </div>
@@ -692,7 +885,7 @@
     <div class="container">
         <div class="service-layout">
             <div class="service-content reveal">
-                <span class="eyebrow">07 · Operational Clarity Support</span>
+                <span class="eyebrow">07 &middot; Operational Clarity Support</span>
                 <h2>Support that prevents problems, not just fixes them.</h2>
                 <p>Continuous monitoring, proactive intervention. When you call, you reach a named engineer who knows your setup.</p>
                 <div class="key-finding">
@@ -743,11 +936,11 @@
 </section>
 
 <!-- 08 INFRASTRUCTURE -->
-<section class="service-section" id="infrastructure" style="background: var(--card);">
+<section class="service-section alt-bg" id="infrastructure">
     <div class="container">
         <div class="service-layout reverse">
             <div class="service-content reveal">
-                <span class="eyebrow">08 · Structural Reliability Engineering</span>
+                <span class="eyebrow">08 &middot; Structural Reliability Engineering</span>
                 <h2>Physical infrastructure built for certainty.</h2>
                 <p>Poor cabling and underpowered switching cascade into the digital problems that cost most. From structured cabling to data centre design, the physical foundation is engineered for certainty.</p>
                 <div class="key-finding">
@@ -799,14 +992,14 @@
 </section>
 
 <!-- PLATFORM CTA -->
-<section class="section">
+<section class="cta-section">
     <div class="container">
-        <div class="cta-bar reveal">
+        <div class="reveal">
             <span class="eyebrow">Get Started</span>
             <h2>Ready to see the platform in action?</h2>
-            <p>A Clarity Audit gives you a clear, honest picture of your current infrastructure and what a unified platform could deliver.</p>
-            <div class="cta-actions">
-                <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit →</a>
+            <p class="cta-sub">A Clarity Audit gives you a clear, honest picture of your current infrastructure and what a unified platform could deliver.</p>
+            <div class="cta-buttons">
+                <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit &rarr;</a>
                 <a class="btn btn-outline" href="contact-us.html">Request a Technical Demo</a>
             </div>
         </div>
@@ -818,30 +1011,41 @@
 <!-- FOOTER -->
 <footer>
     <div class="container">
-        <div class="footer-logo">
-            <img src="nunu_Logo_High_Res_Asset.png" alt="nunu">
-        </div>
-        <div class="footer-bottom">
-            <span>© 2026 nunu advanced technologies LTD. All rights reserved.</span>
+        <div class="footer-inner">
+            <div>
+                <div class="footer-logo">
+                    <img src="nunu_Logo_High_Res_Asset.png" alt="nunu">
+                </div>
+                <p style="font-size: 0.85rem; color: var(--muted); max-width: 300px;">Technology that delivers business outcomes. Unified communications, connectivity and security for UK enterprise.</p>
+            </div>
             <div class="footer-links">
                 <a href="index.html">Home</a>
-                <a href="values.html">Values</a>
+                <a href="platform.html">Platform</a>
+                <a href="clarity-audit.html">Clarity Audit</a>
+                <a href="values.html">About</a>
                 <a href="contact-us.html">Contact</a>
+                <a href="privacy.html">Privacy Policy</a>
                 <a href="mailto:intel@nunu.solutions">intel@nunu.solutions</a>
             </div>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 nunu advanced technologies LTD. All rights reserved.
         </div>
     </div>
 </footer>
 
+<!-- JAVASCRIPT -->
 <script>
 (function(){
+    // Mobile menu
     const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileClose = document.getElementById('mobile-close');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
     hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
     mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
 
+    // Reveal animations
     const reveals = document.querySelectorAll('.reveal');
     const obs = new IntersectionObserver(entries => {
         entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
@@ -855,7 +1059,7 @@
         entries.forEach(e => {
             if(e.isIntersecting){
                 navLinks.forEach(l => l.classList.remove('active'));
-                const active = document.querySelector(`.platform-nav-link[href="#${e.target.id}"]`);
+                const active = document.querySelector('.platform-nav-link[href="#' + e.target.id + '"]');
                 if(active) active.classList.add('active');
             }
         });

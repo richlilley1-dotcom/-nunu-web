@@ -20,56 +20,114 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         :root {
-            --black:      #000000;
-            --white:      #FFFFFF;
-            --green:      #00FF00;
-            --light-gray: #F0F0F0;
-            --dark-gray:  #333333;
-            --surface:    #0d0d0d;
-            --card:       #111111;
-            --card-hover: #1a1a1a;
-            --border:     #333333;
-            --border-mid: #444444;
-            --muted:      #888888;
-            --green-dim:  rgba(0,255,0,0.07);
-            --green-lo:   rgba(0,255,0,0.12);
-            --green-glow: rgba(0,255,0,0.30);
+            --black: #000000;
+            --white: #FFFFFF;
+            --green: #00FF00;
+            --muted: #888888;
+            --border: #333333;
+            --card-bg: #111111;
             --font-display: 'Nunito', sans-serif;
             --font-body: 'Inter', sans-serif;
-            --nav-h: 160px; --r: 14px; --r-lg: 22px; --max: 1180px;
-            --glass-bg:     rgba(255,255,255,0.04);
-            --glass-border: rgba(255,255,255,0.08);
+            --nav-h: 160px;
+            --max: 1180px;
             --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
+
         html { scroll-behavior: smooth; }
-        body { background: var(--black); color: var(--white); font-family: var(--font-body); font-size: 16px; line-height: 1.65; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-        h1,h2,h3,h4 { font-family: var(--font-display); font-weight: 800; line-height: 1.1; }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; line-height: 1.1; }
         h1 { font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: -0.02em; }
         h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); letter-spacing: -0.02em; }
         h3 { font-size: 1.2rem; font-weight: 700; }
         p { color: var(--muted); }
         a { text-decoration: none; color: inherit; }
-        .eyebrow { display: inline-block; font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 1rem; }
-        .container { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
-        .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; padding: 0.85rem 1.75rem; border-radius: 8px; cursor: pointer; transition: all 0.2s var(--ease); border: none; white-space: nowrap; }
-        .btn-primary { background: var(--green); color: var(--black); }
-        .btn-primary:hover { background: #33ff33; box-shadow: 0 0 32px var(--green-glow); transform: translateY(-1px); }
-        .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border-mid); }
-        .btn-outline:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
-        .section { padding: 7rem 0; }
 
-        /* REVEAL ANIMATION */
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+
+        .container { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.85rem 1.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s var(--ease);
+            border: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary { background: var(--green); color: var(--black); }
+        .btn-primary:hover { background: #33ff33; box-shadow: 0 0 32px rgba(0,255,0,0.3); transform: translateY(-1px); }
+        .btn-outline { background: transparent; color: var(--white); border: 1px solid #444; }
+        .btn-outline:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
+
+        /* REVEAL ANIMATIONS */
         .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
         .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
 
         /* NAV */
-        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); display: flex; align-items: center; background: rgba(0,0,0,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-        .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
         .nav-logo img { height: 288px; width: auto; filter: brightness(0) invert(1); }
         .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
-        .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); padding: 0.5rem 0.85rem; border-radius: 6px; transition: color 0.2s, background 0.2s; white-space: nowrap; }
-        .nav-links a:hover, .nav-links a.active { color: var(--white); background: rgba(255,255,255,0.05); }
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--muted);
+            padding: 0.5rem 0.85rem;
+            border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
+            white-space: nowrap;
+        }
+        .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
         .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
         .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
         .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
@@ -79,24 +137,38 @@
         .mobile-menu a:hover { color: var(--green); }
         .mobile-menu .btn { margin-top: 1rem; font-size: 1rem; padding: 1rem 2rem; }
         .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; line-height: 1; }
-        @media (max-width: 768px) { .nav-links, .nav-actions .btn-outline { display: none; } .nav-hamburger { display: flex; } }
 
-        /* HERO */
+        @media (max-width: 768px) {
+            .nav-links, .nav-actions .btn-outline { display: none; }
+            .nav-hamburger { display: flex; }
+        }
+
+        /* ========== HERO ========== */
         .hero {
-            min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
             padding: calc(var(--nav-h) + 4rem) 0 6rem;
             background: #000000;
         }
-        /* Bloom glow — spherical, anchored bottom-left */
         .hero::before {
-            content: ''; position: absolute; inset: 0; z-index: 0;
-            background: radial-gradient(circle 60vw at 0% 100%, rgba(0, 255, 0, 0.28) 0%, rgba(0, 150, 0, 0.08) 55%, transparent 75%);
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: radial-gradient(circle 60vw at 0% 100%, rgba(0,255,0,0.28) 0%, rgba(0,150,0,0.08) 55%, transparent 75%);
         }
-        /* Planet horizon arc line — anchored bottom-left, curving up to right */
         .hero::after {
-            content: ''; position: absolute;
-            bottom: -155vw; left: -130vw; width: 195vw; height: 195vw;
-            border-radius: 50%; z-index: 0;
+            content: '';
+            position: absolute;
+            bottom: -155vw;
+            left: -130vw;
+            width: 195vw;
+            height: 195vw;
+            border-radius: 50%;
+            z-index: 0;
             box-shadow:
                 0 -1px 0 rgba(0,255,0,0.7),
                 0 -2px 6px rgba(0,255,0,0.4),
@@ -104,93 +176,411 @@
                 0 -14px 50px rgba(0,255,0,0.12),
                 0 -30px 100px rgba(0,255,0,0.05);
         }
-        .hero-content { position: relative; z-index: 1; max-width: 680px; }
-        .hero-content p { font-size: 1.15rem; margin: 1.5rem 0 2.5rem; max-width: 540px; line-height: 1.7; }
-        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .hero-teaser { font-size: 0.85rem; color: var(--muted); margin-top: 2rem; max-width: 480px; line-height: 1.6; font-style: italic; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 500; color: var(--green); margin-bottom: 1.5rem; padding: 0.4rem 1rem; border: 1px solid rgba(0,255,0,0.2); border-radius: 100px; background: var(--green-dim); }
-        .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
-
-
-        /* SOLUTIONS BENTO */
-        .solutions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; }
-        .solution-card {
-            background: var(--card); border: 1px solid var(--border); border-radius: var(--r);
-            padding: 2rem; transition: all 0.3s var(--ease); position: relative; overflow: hidden;
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 660px;
         }
-        .solution-card:hover { border-color: rgba(0,255,0,0.3); transform: translateY(-3px); box-shadow: 0 8px 40px rgba(0,255,0,0.08); }
-        .solution-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--green-dim); border: 1px solid rgba(0,255,0,0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; color: var(--green); }
-        .solution-card h3 { margin-bottom: 0.75rem; color: var(--white); }
-        .solution-card p { font-size: 0.9rem; line-height: 1.7; max-width: 480px; }
-        .solution-card .card-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--green); margin-top: 1.25rem; transition: gap 0.2s; text-decoration: none; }
-        .solution-card:hover .card-link { gap: 0.7rem; }
-        @media (max-width: 1024px) { .solutions-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .solutions-grid { grid-template-columns: 1fr; } }
-
-        /* WHY NUNU */
-        .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
-        .why-list { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; }
-        .why-list li { display: flex; gap: 1rem; align-items: flex-start; }
-        .why-num { flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px; background: var(--green-dim); border: 1px solid rgba(0,255,0,0.15); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: 0.85rem; color: var(--green); }
-        .why-text h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
-        .why-text p { font-size: 0.9rem; }
-        .why-visual {
-            background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
-            padding: 3rem; display: flex; flex-direction: column; gap: 1.5rem;
+        .hero-content h1 {
+            margin-bottom: 1.5rem;
         }
-        .why-stat-row { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--border); }
-        .why-stat-row:last-child { border-bottom: none; }
-        .why-stat-label { font-size: 0.85rem; color: var(--muted); }
-        .why-stat-val { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--green); }
-        @media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; } }
+        .hero-content h1 span {
+            color: var(--green);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--green);
+            margin-bottom: 1.5rem;
+            padding: 0.4rem 1rem;
+            border: 1px solid rgba(0,255,0,0.2);
+            border-radius: 100px;
+            background: rgba(0,255,0,0.07);
+        }
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--muted);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            max-width: 520px;
+        }
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .hero-teaser {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 2rem;
+            max-width: 480px;
+            line-height: 1.6;
+            font-style: italic;
+        }
 
-        /* AI SECTION */
-        .ai-section { background: linear-gradient(180deg, var(--black) 0%, rgba(0,255,0,0.03) 50%, var(--black) 100%); }
-        .ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+        /* ========== EVIDENCE CARDS ========== */
+        .evidence {
+            padding: 7rem 0;
+            position: relative;
+        }
+        .evidence-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .evidence-header h2 {
+            margin-bottom: 1rem;
+        }
+        .evidence-header p {
+            max-width: 560px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+        }
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .evidence-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-top: 3px solid rgba(0,255,0,0.4);
+            border-radius: 14px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .evidence-card:hover {
+            border-top-color: var(--green);
+            box-shadow: 0 0 30px rgba(0,255,0,0.08);
+        }
+        .evidence-number {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 900;
+            color: var(--green);
+            line-height: 1;
+            margin-bottom: 1rem;
+            min-height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .evidence-card h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
+        .evidence-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .evidence-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+        }
+
+        /* ========== CAPABILITIES (HORIZONTAL SCROLL) ========== */
+        .capabilities {
+            padding: 7rem 0;
+            position: relative;
+        }
+        .capabilities-header {
+            margin-bottom: 3rem;
+        }
+        .capabilities-header h2 { margin-bottom: 1rem; }
+        .capabilities-header p { max-width: 560px; font-size: 1.05rem; }
+
+        .scroll-strip-wrapper {
+            position: relative;
+            margin: 0 -2rem;
+            padding: 0 2rem;
+        }
+        .scroll-strip {
+            display: flex;
+            gap: 1.25rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0,255,0,0.3) transparent;
+        }
+        .scroll-strip::-webkit-scrollbar { height: 6px; }
+        .scroll-strip::-webkit-scrollbar-track { background: transparent; }
+        .scroll-strip::-webkit-scrollbar-thumb { background: rgba(0,255,0,0.3); border-radius: 3px; }
+
+        .cap-card {
+            flex: 0 0 300px;
+            scroll-snap-align: start;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem;
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+        }
+        .cap-card:hover {
+            border-color: rgba(0,255,0,0.4);
+            box-shadow: 0 0 30px rgba(0,255,0,0.08);
+            transform: translateY(-2px);
+        }
+        .cap-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(0,255,0,0.08);
+            border: 1px solid rgba(0,255,0,0.2);
+            margin-bottom: 1.25rem;
+            color: var(--green);
+        }
+        .cap-card h3 { margin-bottom: 0.6rem; font-size: 1.05rem; }
+        .cap-card p { font-size: 0.88rem; line-height: 1.55; margin-bottom: 1.25rem; }
+        .cap-link {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--green);
+            transition: opacity 0.2s;
+        }
+        .cap-link:hover { opacity: 0.8; }
+
+        .scroll-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .scroll-hint svg { animation: nudge 1.5s ease-in-out infinite; }
+        @keyframes nudge {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(6px); }
+        }
+
+        /* ========== AI INTELLIGENCE ========== */
+        .ai-section {
+            padding: 7rem 0;
+            background: linear-gradient(180deg, var(--black) 0%, rgba(0,255,0,0.03) 50%, var(--black) 100%);
+        }
+        .ai-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
         .ai-features { display: flex; flex-direction: column; gap: 1rem; }
         .ai-feature {
-            display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem; border-radius: var(--r);
-            border: 1px solid transparent; transition: all 0.3s var(--ease);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            border-radius: 14px;
+            border: 1px solid transparent;
+            transition: all 0.3s var(--ease);
         }
-        .ai-feature:hover { background: var(--glass-bg); border-color: var(--glass-border); }
-        .ai-dot { flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-top: 0.5rem; }
+        .ai-feature:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.08);
+        }
+        .ai-dot {
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            margin-top: 0.5rem;
+        }
         .ai-feature h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
         .ai-feature p { font-size: 0.9rem; }
         .ai-visual {
-            background: var(--card); border: 1px solid rgba(0,255,0,0.15); border-radius: var(--r-lg);
-            padding: 2.5rem; position: relative; overflow: hidden;
+            background: var(--card-bg);
+            border: 1px solid rgba(0,255,0,0.15);
+            border-radius: 22px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
         }
         .ai-visual::before {
-            content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 100%;
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
             background: radial-gradient(circle, rgba(0,255,0,0.06) 0%, transparent 70%);
         }
         .ai-visual-inner { position: relative; z-index: 1; }
         .ai-visual h3 { font-size: 1.4rem; margin-bottom: 1.5rem; }
-        .ai-metric { display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 0; border-bottom: 1px solid var(--border); }
+        .ai-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid var(--border);
+        }
         .ai-metric:last-child { border-bottom: none; }
         .ai-metric-label { font-size: 0.85rem; color: var(--muted); }
         .ai-metric-val { font-family: var(--font-display); font-weight: 800; color: var(--white); }
         @media (max-width: 768px) { .ai-grid { grid-template-columns: 1fr; } }
 
-        /* CTA */
-        .cta-section { text-align: center; padding: 8rem 0; position: relative; }
-        .cta-section::before {
-            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-            width: 500px; height: 500px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(0,255,0,0.06) 0%, transparent 70%);
+        /* ========== WHY NUNU (TIMELINE) ========== */
+        .why-section {
+            padding: 7rem 0;
+            position: relative;
         }
-        .cta-section h2 { margin-bottom: 1.25rem; position: relative; z-index: 1; }
-        .cta-section p { max-width: 500px; margin: 0 auto 2.5rem; position: relative; z-index: 1; font-size: 1.05rem; }
-        .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+        .why-header {
+            margin-bottom: 4rem;
+        }
+        .why-header h2 { margin-bottom: 1rem; }
+        .why-header p { max-width: 560px; font-size: 1.05rem; }
 
-        /* FOOTER */
-        footer { border-top: 1px solid var(--border); padding: 3rem 0; }
-        .footer-logo img { height: 216px; width: auto; margin-bottom: 1rem; display: block; filter: brightness(0) invert(1); }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .footer-bottom span { font-size: 0.8rem; color: var(--muted); }
-        .footer-links { display: flex; gap: 1.5rem; }
-        .footer-links a { font-size: 0.8rem; color: var(--muted); transition: color 0.2s; }
-        .footer-links a:hover { color: var(--green); }
+        .timeline {
+            position: relative;
+            padding-left: 3.5rem;
+            max-width: 680px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--green), rgba(0,255,0,0.15));
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 3rem;
+        }
+        .timeline-item:last-child { padding-bottom: 0; }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2.75rem;
+            top: 0.15rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background: var(--black);
+            border: 2px solid var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--green);
+            z-index: 1;
+        }
+        .timeline-item h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-item p {
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            padding: 7rem 0 5rem;
+            text-align: center;
+            position: relative;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,255,0,0.2), transparent);
+        }
+        .cta-section h2 {
+            margin-bottom: 1rem;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-section .cta-sub {
+            font-size: 1.05rem;
+            max-width: 520px;
+            margin: 0 auto 2.5rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .cta-teaser {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border);
+        }
+        .footer-inner {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .footer-logo img {
+            height: 216px;
+            width: auto;
+            margin-bottom: 1rem;
+            display: block;
+            filter: brightness(0) invert(1);
+        }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--white); }
+        .footer-copy {
+            width: 100%;
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: clamp(1.8rem, 6vw, 2.4rem); }
+            .hero-sub { font-size: 1rem; }
+            .timeline { padding-left: 2.5rem; }
+            .timeline-dot { left: -1.85rem; width: 1.25rem; height: 1.25rem; font-size: 0.55rem; }
+        }
     </style>
     <script type="application/ld+json">
     {
@@ -212,6 +602,7 @@
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
     <div class="nav-inner">
         <a class="nav-logo" href="index.html">
@@ -226,13 +617,14 @@
         </ul>
         <div class="nav-actions">
             <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
+            <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
-        <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
-            <span></span><span></span><span></span>
-        </button>
     </div>
 </nav>
 
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
     <button class="mobile-close" id="mobile-close" aria-label="Close menu">&#215;</button>
     <a href="platform.html">Platform</a>
@@ -244,161 +636,153 @@
 </div>
 
 <main>
+
 <!-- HERO -->
 <section class="hero">
     <div class="container">
         <div class="hero-content">
             <div class="hero-badge">Trusted by UK enterprises</div>
-            <h1>Stop Losing Revenue to Infrastructure You Can't See</h1>
-            <p>Fragmented vendors, blind spots in compliance, conversations that disappear. One platform fixes all of it.</p>
-            <div class="hero-actions">
-                <a class="btn btn-primary" href="clarity-audit.html">Get Your Free Clarity Report</a>
-                <a class="btn btn-outline" href="platform.html">Explore the Platform</a>
+            <h1>Stop Losing Revenue to Infrastructure <span>You Can't See</span></h1>
+            <p class="hero-sub">Most UK businesses are bleeding money through fragmented telecoms, invisible security gaps, and infrastructure nobody owns. A free Clarity Audit shows you exactly where.</p>
+            <div class="hero-ctas">
+                <a href="clarity-audit.html" class="btn btn-primary">Get Your Free Clarity Report</a>
+                <a href="platform.html" class="btn btn-outline">Explore the Platform</a>
             </div>
             <p class="hero-teaser">We've mapped the 6 most common failure patterns in UK business communications. Most companies have at least 3.</p>
         </div>
     </div>
 </section>
 
-<!-- SOLUTIONS -->
-<section class="section" id="solutions">
+<!-- EVIDENCE CARDS -->
+<section class="evidence">
     <div class="container">
-        <span class="eyebrow">Solutions</span>
-        <h2>One platform. Eight capabilities.<br>No gaps.</h2>
-        <div class="solutions-grid">
-            <div class="solution-card reveal">
-                <div class="solution-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        <div class="evidence-header reveal">
+            <span class="eyebrow">The Problem</span>
+            <h2>The Cost of Fragmentation</h2>
+            <p>Your infrastructure is hiding things from you. Here is what we find when we look.</p>
+        </div>
+        <div class="evidence-grid">
+            <div class="evidence-card reveal reveal-delay-1">
+                <div class="evidence-number" data-target="3-5" data-prefix="" data-suffix="">
+                    <span class="count-display">0</span>
                 </div>
-                <h3>Unified Voice</h3>
-                <p>Cloud PBX, Teams integration, call recording and AI transcription in a single platform.</p>
-                <a href="platform.html#voice" class="card-link">See what you're missing &rarr;</a>
+                <h3>Hidden issues uncovered per Clarity Audit</h3>
+                <p>Every audit reveals blind spots: orphaned licences, unmonitored circuits, security gaps nobody knew existed.</p>
             </div>
-            <div class="solution-card reveal">
-                <div class="solution-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5"/></svg>
+            <div class="evidence-card reveal reveal-delay-2">
+                <div class="evidence-number" data-target="18-45" data-prefix="&pound;" data-suffix="K">
+                    <span class="count-display">&pound;0K</span>
                 </div>
-                <h3>AI Conversation Intelligence</h3>
-                <p>Real-time sentiment analysis, compliance monitoring and semantic search across every conversation. Turn calls into actionable insight.</p>
-                <a href="platform.html#ai" class="card-link">See what you're missing &rarr;</a>
+                <h3>Average hidden annual spend identified</h3>
+                <p>Duplicate contracts, unused capacity and vendor overlap that silently drains budget year after year.</p>
             </div>
-            <div class="solution-card reveal">
-                <div class="solution-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            <div class="evidence-card reveal reveal-delay-3">
+                <div class="evidence-number" data-target="2.25" data-prefix="" data-suffix="x">
+                    <span class="count-display">0x</span>
                 </div>
-                <h3>Security &amp; Compliance</h3>
-                <p>End-to-end encryption, UK data residency, and alignment with FCA, GDPR and ISO frameworks.</p>
-                <a href="platform.html#security" class="card-link">See what you're missing &rarr;</a>
-            </div>
-            <div class="solution-card reveal">
-                <div class="solution-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                </div>
-                <h3>Connectivity Resilience</h3>
-                <p>SD-WAN, multi-carrier failover and always-on architecture. Sub-30-second failover, 99.99% uptime SLA.</p>
-                <a href="platform.html#connectivity" class="card-link">See what you're missing &rarr;</a>
-            </div>
-            <div class="solution-card reveal">
-                <div class="solution-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                </div>
-                <h3>Contact Centre</h3>
-                <p>Omnichannel routing across voice, email, chat, SMS and social with skills-based distribution.</p>
-                <a href="platform.html#contact-centre" class="card-link">See what you're missing &rarr;</a>
-            </div>
-            <div class="solution-card reveal">
-                <div class="solution-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-                </div>
-                <h3>Operational Support</h3>
-                <p>24/7 proactive monitoring, named engineers, and SLA-backed resolution from a UK team.</p>
-                <a href="platform.html#support" class="card-link">See what you're missing &rarr;</a>
-            </div>
-            <div class="solution-card reveal">
-                <div class="solution-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-                </div>
-                <h3>Organisational Memory</h3>
-                <p>Every conversation captured, structured and searchable. AI transcription, smart tagging and instant retrieval.</p>
-                <a href="platform.html#memory" class="card-link">See what you're missing &rarr;</a>
-            </div>
-            <div class="solution-card reveal">
-                <div class="solution-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                </div>
-                <h3>Structural Reliability Engineering</h3>
-                <p>Structured cabling, switching, data centre design and power management. The physical foundation for digital resilience.</p>
-                <a href="platform.html#infrastructure" class="card-link">See what you're missing &rarr;</a>
+                <h3>The psychological weight of losses vs gains</h3>
+                <p>Loss aversion means the cost of doing nothing feels invisible until you see the numbers. Then it becomes impossible to ignore.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- WHY NUNU -->
-<section class="section" id="about">
+<!-- CAPABILITIES (HORIZONTAL SCROLL) -->
+<section class="capabilities" id="solutions">
     <div class="container">
-        <span class="eyebrow">Why nunu</span>
-        <h2>What fragmented infrastructure is costing you</h2>
-        <div class="why-grid">
-            <ul class="why-list reveal">
-                <li>
-                    <div class="why-num">01</div>
-                    <div class="why-text">
-                        <h4>Single accountable partner</h4>
-                        <p>One contract, one escalation path. No finger-pointing between vendors.</p>
+        <div class="capabilities-header reveal">
+            <span class="eyebrow">The Solution</span>
+            <h2>Eight Capabilities, One Platform</h2>
+            <p>Everything your infrastructure needs, engineered to work together. No bolt-ons, no gaps.</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="scroll-strip-wrapper">
+            <div class="scroll-strip">
+
+                <div class="cap-card">
+                    <div class="cap-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
                     </div>
-                </li>
-                <li>
-                    <div class="why-num">02</div>
-                    <div class="why-text">
-                        <h4>Engineered integration</h4>
-                        <p>Every capability is designed to work with every other. Built in, not bolted on.</p>
+                    <h3>Unified Voice</h3>
+                    <p>Cloud PBX, Teams integration, call recording and AI transcription in a single platform.</p>
+                    <a href="platform.html#voice" class="cap-link">See what you're missing &rarr;</a>
+                </div>
+
+                <div class="cap-card">
+                    <div class="cap-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5"/></svg>
                     </div>
-                </li>
-                <li>
-                    <div class="why-num">03</div>
-                    <div class="why-text">
-                        <h4>Outcome-measured</h4>
-                        <p>Success is measured by your business results, not tickets closed.</p>
+                    <h3>AI Conversation Intelligence</h3>
+                    <p>Real-time sentiment analysis, compliance monitoring and semantic search across every conversation. Turn calls into actionable insight.</p>
+                    <a href="platform.html#ai" class="cap-link">See what you're missing &rarr;</a>
+                </div>
+
+                <div class="cap-card">
+                    <div class="cap-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                     </div>
-                </li>
-                <li>
-                    <div class="why-num">04</div>
-                    <div class="why-text">
-                        <h4>UK-based, UK-focused</h4>
-                        <p>Data residency, support teams and engineering, all based in the UK.</p>
+                    <h3>Security &amp; Compliance</h3>
+                    <p>End-to-end encryption, UK data residency, and alignment with FCA, GDPR and ISO frameworks.</p>
+                    <a href="platform.html#security" class="cap-link">See what you're missing &rarr;</a>
+                </div>
+
+                <div class="cap-card">
+                    <div class="cap-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                     </div>
-                </li>
-            </ul>
-            <div class="why-visual reveal">
-                <h3 style="margin-bottom: 1rem;">Operational intelligence</h3>
-                <div class="why-stat-row">
-                    <span class="why-stat-label">Clarity Audits delivered</span>
-                    <span class="why-stat-val">47</span>
+                    <h3>Connectivity Resilience</h3>
+                    <p>SD-WAN, multi-carrier failover and always-on architecture. Sub-30-second failover, 99.99% uptime SLA.</p>
+                    <a href="platform.html#connectivity" class="cap-link">See what you're missing &rarr;</a>
                 </div>
-                <div class="why-stat-row">
-                    <span class="why-stat-label">Annual savings identified</span>
-                    <span class="why-stat-val">&pound;2.1M</span>
+
+                <div class="cap-card">
+                    <div class="cap-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                    </div>
+                    <h3>Contact Centre</h3>
+                    <p>Omnichannel routing across voice, email, chat, SMS and social with skills-based distribution.</p>
+                    <a href="platform.html#contact-centre" class="cap-link">See what you're missing &rarr;</a>
                 </div>
-                <div class="why-stat-row">
-                    <span class="why-stat-label">Platform uptime SLA</span>
-                    <span class="why-stat-val">99.99%</span>
+
+                <div class="cap-card">
+                    <div class="cap-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
+                    <h3>Operational Support</h3>
+                    <p>24/7 proactive monitoring, named engineers, and SLA-backed resolution from a UK team.</p>
+                    <a href="platform.html#support" class="cap-link">See what you're missing &rarr;</a>
                 </div>
-                <div class="why-stat-row">
-                    <span class="why-stat-label">Failover time</span>
-                    <span class="why-stat-val">&lt; 30s</span>
+
+                <div class="cap-card">
+                    <div class="cap-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                    </div>
+                    <h3>Organisational Memory</h3>
+                    <p>Every conversation captured, structured and searchable. AI transcription, smart tagging and instant retrieval.</p>
+                    <a href="platform.html#memory" class="cap-link">See what you're missing &rarr;</a>
                 </div>
-                <div class="why-stat-row">
-                    <span class="why-stat-label">UK data residency</span>
-                    <span class="why-stat-val">100%</span>
+
+                <div class="cap-card">
+                    <div class="cap-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <h3>Structural Reliability Engineering</h3>
+                    <p>Structured cabling, switching, data centre design and power management. The physical foundation for digital resilience.</p>
+                    <a href="platform.html#infrastructure" class="cap-link">See what you're missing &rarr;</a>
                 </div>
+
+            </div>
+            <div class="scroll-hint">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                Scroll to explore all capabilities
             </div>
         </div>
     </div>
 </section>
 
 <!-- AI INTELLIGENCE -->
-<section class="section ai-section" id="ai-intelligence">
+<section class="ai-section" id="ai-intelligence">
     <div class="container">
         <span class="eyebrow">AI Intelligence</span>
         <h2>Every conversation becomes<br>a business asset</h2>
@@ -458,15 +842,51 @@
     </div>
 </section>
 
+<!-- WHY NUNU (TIMELINE) -->
+<section class="why-section" id="about">
+    <div class="container">
+        <div class="why-header reveal">
+            <span class="eyebrow">Why nunu</span>
+            <h2>What fragmented infrastructure is costing you</h2>
+            <p>Four principles that turn complexity into clarity and cost into confidence.</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-dot">01</div>
+                <h4>Single accountable partner</h4>
+                <p>One contract, one escalation path. No finger-pointing between vendors. When something breaks at 2 a.m., you call one number.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot">02</div>
+                <h4>Engineered integration</h4>
+                <p>Every capability is designed to work with every other. Built in, not bolted on. Your voice, data, security and AI share a single nervous system.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot">03</div>
+                <h4>Outcome-measured</h4>
+                <p>Success is measured by your business results, not tickets closed. We report on what matters to your board, not our dashboard.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot">04</div>
+                <h4>UK-based, UK-focused</h4>
+                <p>Data residency, support teams and engineering, all based in the UK. Compliance is not an afterthought; it is the starting point.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-section">
     <div class="container">
-        <span class="eyebrow">Get started</span>
-        <h2>Find out what your infrastructure<br>is hiding from you</h2>
-        <p>The Clarity Report maps your current environment, quantifies hidden spend, and identifies the gaps your vendors aren't telling you about.</p>
-        <div class="cta-actions">
-            <a class="btn btn-primary" href="clarity-audit.html">Get Your Free Clarity Report</a>
-            <a class="btn btn-outline" href="contact-us.html">Talk to us</a>
+        <div class="reveal">
+            <span class="eyebrow">Get started</span>
+            <h2>Find out what your infrastructure is hiding from you</h2>
+            <p class="cta-sub">A Clarity Audit takes 30 minutes, costs nothing, and shows you exactly where you are losing money, resilience and control.</p>
+            <div class="cta-buttons">
+                <a href="clarity-audit.html" class="btn btn-primary">Get Your Free Clarity Report</a>
+                <a href="contact-us.html" class="btn btn-outline">Talk to Our Team</a>
+            </div>
+            <p class="cta-teaser">92% of audits uncover at least one issue the business had no idea existed.</p>
         </div>
     </div>
 </section>
@@ -476,23 +896,32 @@
 <!-- FOOTER -->
 <footer>
     <div class="container">
-        <div class="footer-logo">
-            <img src="nunu_Full_Logo.png" alt="nunu advanced technologies LTD">
-        </div>
-        <div class="footer-bottom">
-            <span>&copy; 2026 nunu advanced technologies LTD. All rights reserved.</span>
+        <div class="footer-inner">
+            <div>
+                <div class="footer-logo">
+                    <img src="nunu_Full_Logo.png" alt="nunu advanced technologies LTD">
+                </div>
+                <p style="font-size: 0.85rem; color: var(--muted); max-width: 300px;">Technology that delivers business outcomes. Unified communications, connectivity and security for UK enterprise.</p>
+            </div>
             <div class="footer-links">
                 <a href="index.html">Home</a>
+                <a href="platform.html">Platform</a>
+                <a href="clarity-audit.html">Clarity Audit</a>
                 <a href="values.html">Values</a>
                 <a href="contact-us.html">Contact</a>
                 <a href="mailto:intel@nunu.solutions">intel@nunu.solutions</a>
             </div>
         </div>
+        <div class="footer-copy">
+            &copy; 2026 nunu advanced technologies LTD. All rights reserved.
+        </div>
     </div>
 </footer>
 
+<!-- JAVASCRIPT -->
 <script>
 (function(){
+    // Mobile menu
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileClose = document.getElementById('mobile-close');
@@ -500,11 +929,89 @@
     mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
 
-    const reveals = document.querySelectorAll('.reveal');
-    const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(el => obs.observe(el));
+    // Scroll-reveal with IntersectionObserver
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Count-up animation for evidence cards
+    const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.dataset.animated) {
+                entry.target.dataset.animated = 'true';
+                animateCard(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.evidence-card').forEach(card => countObserver.observe(card));
+
+    function animateCard(card) {
+        const numberEl = card.querySelector('.evidence-number');
+        const display = card.querySelector('.count-display');
+        const target = numberEl.dataset.target;
+        const prefix = numberEl.dataset.prefix || '';
+        const suffix = numberEl.dataset.suffix || '';
+
+        if (target.includes('-')) {
+            const parts = target.split('-');
+            const startNum = parseFloat(parts[0]);
+            const endNum = parseFloat(parts[1]);
+            animateRange(display, startNum, endNum, prefix, suffix, 1200);
+        } else {
+            const num = parseFloat(target);
+            animateNumber(display, 0, num, prefix, suffix, 1200);
+        }
+    }
+
+    function animateRange(el, start, end, prefix, suffix, duration) {
+        const steps = 40;
+        const stepTime = (duration * 0.6) / steps;
+        let current = 0;
+        let step = 0;
+
+        const timer = setInterval(() => {
+            step++;
+            current = Math.round((start * step) / steps);
+            if (current > start) current = start;
+            el.textContent = prefix + current + suffix;
+
+            if (step >= steps) {
+                clearInterval(timer);
+                setTimeout(() => {
+                    el.textContent = prefix + start + '-' + end + suffix;
+                }, 200);
+            }
+        }, stepTime);
+    }
+
+    function animateNumber(el, start, end, prefix, suffix, duration) {
+        const steps = 40;
+        const stepTime = duration / steps;
+        let step = 0;
+        const isDecimal = end % 1 !== 0;
+
+        const timer = setInterval(() => {
+            step++;
+            let current = start + (end - start) * (step / steps);
+            if (step >= steps) current = end;
+
+            if (isDecimal) {
+                el.textContent = prefix + current.toFixed(2) + suffix;
+            } else {
+                el.textContent = prefix + Math.round(current) + suffix;
+            }
+
+            if (step >= steps) clearInterval(timer);
+        }, stepTime);
+    }
 })();
 </script>
 <script src="logo-loader.js"></script>
