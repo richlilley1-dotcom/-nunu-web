@@ -262,7 +262,33 @@
             border: 1px solid var(--border);
             border-top: 3px solid rgba(0,255,0,0.4);
             border-radius: 14px;
+            position: relative;
+            overflow: hidden;
             transition: all 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .contact-channel::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 14px;
+            padding: 1px;
+            background: linear-gradient(135deg, transparent 40%, rgba(0,255,0,0.6) 50%, transparent 60%);
+            background-size: 300% 300%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s var(--ease);
+            pointer-events: none;
+        }
+        .contact-channel:hover::before {
+            opacity: 1;
+            animation: border-glow 2s linear infinite;
+        }
+        @keyframes border-glow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
         .contact-channel:hover {
             border-top-color: var(--green);

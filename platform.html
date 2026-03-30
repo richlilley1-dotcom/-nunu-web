@@ -312,6 +312,26 @@
             background: var(--card-bg); padding: 2rem 1.5rem;
             transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease); cursor: pointer;
             position: relative;
+            overflow: hidden;
+        }
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 14px;
+            padding: 1px;
+            background: linear-gradient(135deg, transparent 40%, rgba(0,255,0,0.6) 50%, transparent 60%);
+            background-size: 300% 300%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s var(--ease);
+            pointer-events: none;
+        }
+        .overview-card:hover::before {
+            opacity: 1;
+            animation: border-glow 2s linear infinite;
         }
         .overview-card a { position: static; }
         .overview-card a::after {
@@ -381,7 +401,33 @@
             border-radius: 14px;
             padding: 1.5rem 1.5rem;
             margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
             transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+        .key-finding::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 14px;
+            padding: 1px;
+            background: linear-gradient(135deg, transparent 40%, rgba(0,255,0,0.6) 50%, transparent 60%);
+            background-size: 300% 300%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s var(--ease);
+            pointer-events: none;
+        }
+        .key-finding:hover::before {
+            opacity: 1;
+            animation: border-glow 2s linear infinite;
+        }
+        @keyframes border-glow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
         .key-finding:hover {
             border-top-color: var(--green);
