@@ -109,6 +109,10 @@
 
         /* GLOBAL POLISH */
         ::selection { background: rgba(0,255,0,0.25); color: var(--white); }
+        a:focus-visible, .btn:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+            outline: 2px solid var(--green);
+            outline-offset: 2px;
+        }
         html { scrollbar-width: thin; scrollbar-color: rgba(0,255,0,0.3) transparent; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -214,6 +218,17 @@
         @media (max-width: 768px) {
             .nav-links, .nav-actions .btn-outline { display: none; }
             .nav-hamburger { display: flex; }
+            .nav-logo img { height: 160px; }
+            nav { --nav-h: 100px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            .cursor-glow { display: none !important; }
+            .reveal { opacity: 1; transform: none; }
         }
 
         /* PAGE HERO */

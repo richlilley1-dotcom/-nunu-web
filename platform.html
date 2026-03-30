@@ -112,6 +112,10 @@
 
         /* GLOBAL POLISH */
         ::selection { background: rgba(0,255,0,0.25); color: var(--white); }
+        a:focus-visible, .btn:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+            outline: 2px solid var(--green);
+            outline-offset: 2px;
+        }
         html { scrollbar-width: thin; scrollbar-color: rgba(0,255,0,0.3) transparent; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -206,6 +210,17 @@
         @media (max-width: 768px) {
             .nav-links, .nav-actions .btn-outline { display: none; }
             .nav-hamburger { display: flex; }
+            .nav-logo img { height: 160px; }
+            nav { --nav-h: 100px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            .cursor-glow { display: none !important; }
+            .reveal { opacity: 1; transform: none; }
         }
 
         /* PAGE HERO with planet arc glow */
@@ -496,6 +511,28 @@
         @media (max-width: 520px) {
             .overview-grid { grid-template-columns: 1fr; }
         }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+            z-index: 50;
+        }
+        .back-to-top.visible { opacity: 1; pointer-events: auto; }
+        .back-to-top:hover { box-shadow: 0 0 20px rgba(0,255,0,0.2); border-color: var(--green); transform: translateY(-2px); }
     </style>
 </head>
 <body>
@@ -525,7 +562,7 @@
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-close" id="mobileClose" aria-label="Close menu">&times;</button>
+    <button class="mobile-close" id="mobile-close" aria-label="Close menu">&times;</button>
     <a href="platform.html">Platform</a>
     <a href="clarity-audit.html">Clarity Audit</a>
     <a href="index.html#ai-intelligence">AI Intelligence</a>
@@ -1129,7 +1166,7 @@
     // Mobile menu
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
-    const mobileClose = document.getElementById('mobileClose');
+    const mobileClose = document.getElementById('mobile-close');
     hamburger.addEventListener('click', () => { mobileMenu.classList.add('open'); hamburger.classList.add('active'); });
     mobileClose.addEventListener('click', () => { mobileMenu.classList.remove('open'); hamburger.classList.remove('active'); });
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mobileMenu.classList.remove('open'); hamburger.classList.remove('active'); }));
@@ -1201,8 +1238,19 @@
         });
         document.addEventListener('mouseleave', () => { glow.classList.remove('active'); glowActive = false; });
     }
+    // Back to top
+    const btt = document.getElementById('back-to-top');
+    if (btt) {
+        window.addEventListener('scroll', () => {
+            btt.classList.toggle('visible', window.scrollY > 600);
+        });
+        btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
 })();
 </script>
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"Platform | nunu advanced technologies","description":"Eight integrated capabilities: voice, AI, security, connectivity, contact centre, support, organisational memory and infrastructure.","url":"https://nunu.solutions/platform","provider":{"@type":"Organization","name":"nunu advanced technologies LTD","url":"https://nunu.solutions"}}
 </script>
