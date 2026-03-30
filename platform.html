@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unified Communications Platform | 8 Integrated Capabilities | nunu</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <meta name="description" content="Connectivity, voice, contact centre, security, AI intelligence and support in one platform. One policy layer, one partner, 99.99% uptime.">
     <link rel="canonical" href="https://nunu.solutions/platform.html">
     <meta property="og:type" content="website">
@@ -206,7 +207,7 @@
         .footer-logo img { height: 216px; width: auto; margin-bottom: 1rem; display: block; filter: brightness(0) invert(1); }
         .footer-links { display: flex; gap: 2rem; }
         .footer-links a { color: var(--muted); font-size: 0.82rem; transition: color 0.2s; }
-        .footer-links a:hover { color: var(--white); }
+        .footer-links a:hover { color: var(--green); }
 
         @media (max-width: 1024px) { .overview-grid { grid-template-columns: repeat(2, 1fr); } .ai-caps-grid { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 768px) { .service-layout, .service-layout.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2.5rem; } .overview-grid { grid-template-columns: 1fr 1fr; } .ai-caps-grid { grid-template-columns: 1fr; } .section { padding: 4rem 0; } .service-section { padding: 4rem 0; } }
@@ -228,7 +229,6 @@
             <li><a href="contact-us.html">Contact</a></li>
         </ul>
         <div class="nav-actions">
-            <a class="btn btn-outline" href="contact-us.html">Customer Login</a>
             <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
         </div>
         <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
@@ -238,7 +238,7 @@
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
-    <button class="mobile-close" id="mobile-close">&#215;</button>
+    <button class="mobile-close" id="mobile-close" aria-label="Close menu">&#215;</button>
     <a href="platform.html">Platform</a>
     <a href="index.html#solutions">Solutions</a>
     <a href="index.html#ai-intelligence">AI Intelligence</a>
@@ -816,6 +816,9 @@
     }, { rootMargin: '-30% 0px -60% 0px' });
     sections.forEach(s => scrollObs.observe(s));
 })();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Platform | nunu advanced technologies","description":"Eight integrated capabilities: voice, AI, security, connectivity, contact centre, support, organisational memory and infrastructure.","url":"https://nunu.solutions/platform","provider":{"@type":"Organization","name":"nunu advanced technologies LTD","url":"https://nunu.solutions"}}
 </script>
 <script src="logo-loader.js"></script>
 </body>
