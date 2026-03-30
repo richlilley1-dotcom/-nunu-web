@@ -214,6 +214,18 @@
         .page-hero-inner { max-width: 700px; position: relative; z-index: 1; }
         .page-hero-inner h1 { margin-bottom: 1.25rem; }
         .page-hero-inner h1 span { color: var(--green); }
+        .page-hero-inner h1::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green), transparent);
+            margin-top: 1rem;
+            animation: accent-grow 1s var(--ease) 0.6s forwards;
+        }
+        @keyframes accent-grow {
+            to { width: 80px; }
+        }
         .page-hero p { font-size: 1.15rem; color: var(--muted); line-height: 1.7; max-width: 580px; }
 
         /* PLATFORM NAV */
@@ -1102,6 +1114,29 @@
         });
     }, { rootMargin: '-30% 0px -60% 0px' });
     sections.forEach(s => scrollObs.observe(s));
+
+    // Parallax + blur-out on hero
+    const heroEl = document.querySelector('.page-hero');
+    const heroInner = document.querySelector('.page-hero-inner');
+    if (heroEl && heroInner) {
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrollY = window.scrollY;
+                    const heroH = heroEl.offsetHeight;
+                    if (scrollY < heroH) {
+                        const progress = scrollY / heroH;
+                        heroInner.style.transform = 'translateY(' + (scrollY * 0.15) + 'px)';
+                        heroInner.style.opacity = 1 - (progress * 0.8);
+                        heroInner.style.filter = 'blur(' + (progress * 6) + 'px)';
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    }
 })();
 </script>
 <script type="application/ld+json">

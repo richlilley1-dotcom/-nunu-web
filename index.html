@@ -263,6 +263,25 @@
         .hero-content .hero-ctas { animation-delay: 0.55s; }
         .hero-content .hero-teaser { animation-delay: 0.7s; }
 
+        .hero-content h1::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green), transparent);
+            margin-top: 1rem;
+            animation: accent-grow 1s var(--ease) 0.6s forwards;
+        }
+        @keyframes accent-grow {
+            to { width: 80px; }
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 20px rgba(0,255,0,0.15);
+            outline: none;
+        }
+
         /* ========== EVIDENCE CARDS ========== */
         .evidence {
             padding: 7rem 0;
@@ -1069,6 +1088,28 @@
 
             if (step >= steps) clearInterval(timer);
         }, stepTime);
+    }
+    // Parallax + blur-out on hero
+    const hero = document.querySelector('.hero');
+    const heroContent = document.querySelector('.hero-content');
+    if (hero && heroContent) {
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrollY = window.scrollY;
+                    const heroH = hero.offsetHeight;
+                    if (scrollY < heroH) {
+                        const progress = scrollY / heroH;
+                        heroContent.style.transform = 'translateY(' + (scrollY * 0.15) + 'px)';
+                        heroContent.style.opacity = 1 - (progress * 0.8);
+                        heroContent.style.filter = 'blur(' + (progress * 6) + 'px)';
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
     }
 })();
 </script>
