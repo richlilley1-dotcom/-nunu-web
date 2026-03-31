@@ -193,11 +193,24 @@
         .mobile-menu .btn { margin-top: 1rem; font-size: 1rem; padding: 1rem 2rem; }
         .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; line-height: 1; }
 
+        @media (max-width: 1024px) {
+            .nav-links a { font-size: 0.8rem; padding: 0.4rem 0.6rem; }
+            .nav-actions .btn { font-size: 0.8rem; padding: 0.65rem 1.25rem; }
+        }
+
         @media (max-width: 768px) {
-            .nav-links, .nav-actions .btn-outline { display: none; }
+            .nav-links, .nav-actions { display: none; }
             .nav-hamburger { display: flex; }
-            .nav-logo img { height: 160px; }
+            .nav-logo img { height: 80px; }
             nav { --nav-h: 100px; }
+            .hero, .page-hero { padding-top: calc(var(--nav-h) + 2rem); padding-bottom: 3rem; }
+            .footer-logo img { height: 120px; }
+            .hero-ctas { flex-direction: column; align-items: stretch; }
+            .hero-ctas .btn { text-align: center; justify-content: center; }
+            .trust-items { gap: 1.25rem; justify-content: center; }
+            .trust-item { font-size: 0.75rem; }
+            .nav-actions .btn-primary { font-size: 0.78rem; padding: 0.65rem 1rem; }
+            .nav-actions .btn { font-size: 0.8rem; padding: 0.6rem 1rem; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -412,6 +425,9 @@
             line-height: 1.6;
         }
 
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .evidence-grid { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 768px) {
             .evidence-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
         }
@@ -766,8 +782,11 @@
         @media (max-width: 768px) {
             .hero-content h1 { font-size: clamp(1.8rem, 6vw, 2.4rem); }
             .hero-sub { font-size: 1rem; }
+            .hero { min-height: auto; }
             .timeline { padding-left: 2.5rem; }
             .timeline-dot { left: -1.85rem; width: 1.25rem; height: 1.25rem; font-size: 0.55rem; }
+            .cta-section h2 { font-size: clamp(1.4rem, 4vw, 2rem); }
+            .cta-section { text-align: center; }
         }
 
         .back-to-top {

@@ -218,11 +218,19 @@
         .mobile-menu .btn { margin-top: 1rem; font-size: 1rem; padding: 1rem 2rem; }
         .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; line-height: 1; }
 
+        @media (max-width: 1024px) {
+            .nav-links a { font-size: 0.8rem; padding: 0.4rem 0.6rem; }
+            .nav-actions .btn { font-size: 0.8rem; padding: 0.65rem 1.25rem; }
+        }
+
         @media (max-width: 768px) {
-            .nav-links, .nav-actions .btn-outline { display: none; }
+            .nav-links, .nav-actions { display: none; }
             .nav-hamburger { display: flex; }
-            .nav-logo img { height: 160px; }
+            .nav-logo img { height: 80px; }
             nav { --nav-h: 100px; }
+            .footer-logo img { height: 120px; }
+            .nav-actions .btn-primary { font-size: 0.78rem; padding: 0.65rem 1rem; }
+            .nav-actions .btn { font-size: 0.8rem; padding: 0.6rem 1rem; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -466,11 +474,14 @@
         .deliverable-card h3 { margin-bottom: 0.6rem; font-size: 1.05rem; }
         .deliverable-card p { font-size: 0.9rem; line-height: 1.6; }
 
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .deliverables-grid { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 768px) {
             .audit-layout { grid-template-columns: 1fr; gap: 3rem; }
             .audit-form-card { position: static; }
             .deliverables-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-            .page-hero { min-height: auto; }
+            .page-hero { min-height: auto; padding-top: calc(var(--nav-h) + 2rem); padding-bottom: 3rem; }
         }
 
         /* FOOTER */
