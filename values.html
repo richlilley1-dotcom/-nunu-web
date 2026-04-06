@@ -35,7 +35,7 @@
             --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
 
         body {
             background: var(--black);
@@ -213,7 +213,7 @@
         .mobile-menu.open a:nth-child(7) { transition-delay: 0.35s; }
         .mobile-menu a:hover { color: var(--green); }
         .mobile-menu .btn { margin-top: 1rem; font-size: 1rem; padding: 1rem 2rem; }
-        .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; line-height: 1; }
+        .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; line-height: 1; min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
 
         @media (max-width: 1024px) {
             .nav-links a { font-size: 0.8rem; padding: 0.4rem 0.6rem; }
@@ -221,12 +221,12 @@
         }
 
         @media (max-width: 768px) {
-            .nav-links, .nav-actions { display: none; }
+            .nav-links { display: none; }
+            .nav-actions .btn { display: none; }
             .nav-hamburger { display: flex; }
             .nav-logo img { height: 80px; }
             nav { --nav-h: 100px; }
             .page-hero { padding-top: calc(var(--nav-h) + 2rem); padding-bottom: 3rem; }
-            .footer-logo img { height: 120px; }
             .nav-actions .btn-primary { font-size: 0.78rem; padding: 0.65rem 1rem; }
             .nav-actions .btn { font-size: 0.8rem; padding: 0.6rem 1rem; }
         }
@@ -337,12 +337,16 @@
         @media (min-width: 769px) and (max-width: 1024px) {
             .values-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        @media (max-width: 768px) { .values-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            .values-grid { grid-template-columns: 1fr; }
+            .promise-section::before { width: 300px; height: 300px; }
+        }
 
         /* PROMISE */
         .promise-section {
             padding: 7rem 0;
             position: relative;
+            overflow: hidden;
         }
         .promise-section::before {
             content: '';
@@ -405,6 +409,15 @@
             border-top: 1px solid var(--border);
             font-size: 0.8rem;
             color: #555;
+        }
+
+        @media (max-width: 768px) {
+            .footer-logo img { height: 80px; }
+            .footer-links a { padding: 0.5rem 0; display: inline-block; min-height: 44px; line-height: 44px; }
+        }
+
+        @media (max-width: 375px) {
+            .container { padding: 0 1rem; }
         }
     </style>
 </head>
