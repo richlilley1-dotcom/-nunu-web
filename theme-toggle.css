@@ -1,3 +1,35 @@
+/* ========== ACCESSIBILITY ========== */
+
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 9999;
+    padding: 0.75rem 1.5rem;
+    background: var(--green, #00FF00);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 0 0 8px 8px;
+    text-decoration: none;
+    transition: top 0.2s;
+}
+.skip-link:focus {
+    top: 0;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* ========== LIGHT MODE OVERRIDES ========== */
 
 html[data-theme="light"] {
@@ -85,7 +117,7 @@ html[data-theme="light"] .hero {
     background: #FFFFFF;
 }
 html[data-theme="light"] .hero::before {
-    background: radial-gradient(circle 60vw at 0% 100%, rgba(0,170,0,0.12) 0%, rgba(0,120,0,0.04) 55%, transparent 75%) !important;
+    background: radial-gradient(circle 60vw at 0% 100%, rgba(0,170,0,0.18) 0%, rgba(0,120,0,0.07) 55%, transparent 75%) !important;
 }
 html[data-theme="light"] .hero::after {
     box-shadow: 0 -1px 0 rgba(0,170,0,0.3), 0 -2px 8px rgba(0,170,0,0.12), 0 -8px 30px rgba(0,170,0,0.06), 0 -20px 80px rgba(0,170,0,0.03) !important;
@@ -213,7 +245,7 @@ html[data-theme="light"] .platform-nav-bar {
     background: rgba(255,255,255,0.95);
 }
 html[data-theme="light"] .platform-nav-bar::after {
-    background: linear-gradient(to right, transparent, rgba(255,255,255,0.95)) !important;
+    background: linear-gradient(to right, transparent, #FFFFFF) !important;
 }
 html[data-theme="light"] .platform-nav-links a {
     color: #666666;
@@ -228,7 +260,7 @@ html[data-theme="light"] .form-group input,
 html[data-theme="light"] .form-group select,
 html[data-theme="light"] .form-group textarea {
     background: #FFFFFF;
-    border-color: #DDDDDD;
+    border-color: #CCCCCC;
     color: #111111;
 }
 html[data-theme="light"] .form-group input:focus,

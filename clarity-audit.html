@@ -15,7 +15,8 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Free Clarity Audit | Communications Assessment | nunu">
     <meta name="twitter:description" content="Book a free Clarity Audit. We assess your communications infrastructure, identify savings and give you a clear, actionable roadmap.">
-    <link rel="stylesheet" href="theme-toggle.css?v=10">
+    <meta name="twitter:image" content="https://nunu.solutions/nunu_Logo_High_Res_Asset.png">
+    <link rel="stylesheet" href="theme-toggle.css?v=11">
     <script>(function(){var t=localStorage.getItem('nunu-theme');if(t)document.documentElement.setAttribute('data-theme',t);})()</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -541,6 +542,7 @@
     </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <div class="cursor-glow" id="cursor-glow"></div>
 
 <!-- NAV -->
@@ -580,7 +582,7 @@
     <a class="btn btn-primary" href="clarity-audit.html">Book a Clarity Audit</a>
 </div>
 
-<main>
+<main id="main">
 
 <!-- PAGE HERO -->
 <section class="page-hero">
@@ -755,7 +757,7 @@
                 <a href="values.html">Values</a>
                 <a href="contact-us.html">Contact</a>
                 <a href="privacy.html">Privacy Policy</a>
-                <a href="mailto:intel@nunu.solutions">intel@nunu.solutions</a>
+                <a href="mailto:intel@nunu.solutions" aria-label="Email nunu">intel@nunu.solutions</a>
             </div>
         </div>
         <div class="footer-copy">
@@ -822,6 +824,21 @@
             });
         }
     });
+
+    // Form validation & submit
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = form.querySelector('.form-submit');
+            btn.textContent = 'Submitting…';
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+            setTimeout(function() {
+                form.innerHTML = '<div style="text-align:center;padding:2rem 0;"><p style="font-size:1.2rem;color:var(--green);font-weight:700;margin-bottom:0.5rem;">Request received</p><p style="color:var(--muted);">We\'ll send your Clarity Report within 48 hours.</p></div>';
+            }, 800);
+        });
+    }
 
     // Cursor glow
     const glow = document.getElementById('cursor-glow');
