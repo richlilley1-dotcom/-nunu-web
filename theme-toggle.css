@@ -130,13 +130,12 @@ html[data-theme="light"] .overview-card {
 }
 html[data-theme="light"] .evidence-card:hover,
 html[data-theme="light"] .cap-card:hover {
-    border-color: #00AA00;
-    box-shadow: 0 4px 24px rgba(0,170,0,0.15);
+    border-color: #00CC00;
+    box-shadow: none;
 }
 html[data-theme="light"] .overview-card:hover {
-    background: #EEEEEE;
-    border-color: #00AA00;
-    box-shadow: 0 4px 24px rgba(0,170,0,0.15);
+    border-color: #00CC00;
+    box-shadow: none;
 }
 
 /* Card animated border glow — disable in light mode, use clean border instead */
@@ -198,9 +197,9 @@ html[data-theme="light"] .ai-feature {
     border-color: rgba(0,170,0,0.6);
 }
 html[data-theme="light"] .ai-feature:hover {
-    background: rgba(0,170,0,0.03);
-    border-color: #00AA00;
-    box-shadow: 0 4px 24px rgba(0,170,0,0.15);
+    border-color: #00CC00;
+    box-shadow: none;
+    background: transparent;
 }
 html[data-theme="light"] .ai-cap {
     background: rgba(0,170,0,0.03);
@@ -308,8 +307,8 @@ html[data-theme="light"] .back-to-top {
     color: #00AA00;
 }
 html[data-theme="light"] .back-to-top:hover {
-    box-shadow: 0 0 16px rgba(0,170,0,0.15);
-    border-color: #00AA00;
+    border-color: #00CC00;
+    box-shadow: none;
 }
 
 /* Values page cards */
@@ -318,8 +317,8 @@ html[data-theme="light"] .value-card {
     border-color: rgba(0,170,0,0.6);
 }
 html[data-theme="light"] .value-card:hover {
-    border-color: #00AA00;
-    box-shadow: 0 4px 24px rgba(0,170,0,0.15);
+    border-color: #00CC00;
+    box-shadow: none;
 }
 
 /* Promise section */
@@ -334,8 +333,8 @@ html[data-theme="light"] .deliverable-card {
     border-color: rgba(0,170,0,0.6);
 }
 html[data-theme="light"] .deliverable-card:hover {
-    border-color: #00AA00;
-    box-shadow: 0 4px 24px rgba(0,170,0,0.15);
+    border-color: #00CC00;
+    box-shadow: none;
 }
 html[data-theme="light"] .deliverable-icon {
     background: rgba(0,170,0,0.06);
@@ -364,8 +363,8 @@ html[data-theme="light"] .bento-item {
     border-color: rgba(0,170,0,0.6);
 }
 html[data-theme="light"] .bento-item:hover {
-    border-color: #00AA00;
-    box-shadow: 0 4px 24px rgba(0,170,0,0.15);
+    border-color: #00CC00;
+    box-shadow: none;
 }
 html[data-theme="light"] .bento-item.featured {
     border-color: rgba(0,170,0,0.3);
