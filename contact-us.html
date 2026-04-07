@@ -374,6 +374,18 @@
             padding-right: 2.5rem;
         }
         .form-submit { width: 100%; margin-top: 0.5rem; justify-content: center; font-size: 1rem; padding: 1rem; }
+        .form-error {
+            color: #e53e3e;
+            font-size: 0.78rem;
+            margin-top: 0.35rem;
+            display: none;
+        }
+        .form-group.has-error input,
+        .form-group.has-error select,
+        .form-group.has-error textarea {
+            border-color: #e53e3e;
+        }
+        .form-group.has-error .form-error { display: block; }
 
         .btn-primary.loading {
             pointer-events: none;
@@ -458,7 +470,7 @@
 <!-- NAV -->
 <nav>
     <div class="nav-inner">
-        <a class="nav-logo" href="index.html"><img src="nunu_Logo_High_Res_Asset.png" alt="nunu"></a>
+        <a class="nav-logo" href="index.html"><img src="nunu_Logo_High_Res_Asset.png" alt="nunu" decoding="async"></a>
         <ul class="nav-links">
             <li><a href="platform.html">Platform</a></li>
             <li><a href="index.html#solutions">Solutions</a></li>
@@ -555,11 +567,13 @@
             <form action="#" method="POST">
                 <div class="form-group">
                     <label for="name">Full name</label>
-                    <input type="text" id="name" name="name" required placeholder="Jane Smith">
+                    <input type="text" id="name" name="name" required placeholder="Jane Smith" aria-describedby="name-error">
+                    <p class="form-error" id="name-error">Please enter your name</p>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="jane@company.co.uk">
+                    <input type="email" id="email" name="email" required placeholder="jane@company.co.uk" aria-describedby="email-error">
+                    <p class="form-error" id="email-error">Please enter a valid email address</p>
                 </div>
                 <div class="form-group">
                     <label for="subject">Subject</label>
@@ -574,11 +588,13 @@
                 </div>
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea id="message" name="message" required placeholder="How can we help?"></textarea>
+                    <textarea id="message" name="message" required placeholder="How can we help?" aria-describedby="message-error"></textarea>
+                    <p class="form-error" id="message-error">Please enter a message</p>
                 </div>
-                <div class="form-group" style="display: flex; align-items: flex-start; gap: 0.75rem; max-width: 100%;">
+                <div class="form-group" id="consent-group" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.75rem; max-width: 100%;">
                     <input type="checkbox" id="gdpr-consent-contact" name="gdpr_consent" required style="margin-top: 0.3rem; accent-color: #00FF00; flex-shrink: 0;">
-                    <label for="gdpr-consent-contact" style="font-size: 0.85rem; color: #888; line-height: 1.5; text-transform: none; letter-spacing: 0; min-width: 0;">I consent to nunu advanced technologies LTD storing my data to respond to this enquiry. View our <a href="privacy.html" style="color: #00FF00;">Privacy Policy</a>.</label>
+                    <label for="gdpr-consent-contact" style="font-size: 0.85rem; color: #888; line-height: 1.5; text-transform: none; letter-spacing: 0; min-width: 0; flex: 1;">I consent to nunu advanced technologies LTD storing my data to respond to this enquiry. View our <a href="privacy.html" style="color: #00FF00;">Privacy Policy</a>.</label>
+                    <p class="form-error" id="consent-error" style="width: 100%;">Please tick the consent box to proceed</p>
                 </div>
                 <button type="submit" class="btn btn-primary form-submit">Send Message</button>
                 <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: #888;">Or just ask a question: <a href="mailto:intel@nunu.solutions" style="color: #00FF00;">intel@nunu.solutions</a></p>
@@ -593,7 +609,7 @@
 <footer>
     <div class="container">
         <div class="footer-inner">
-            <div class="footer-logo"><img src="nunu_Logo_High_Res_Asset.png" alt="nunu"></div>
+            <div class="footer-logo"><img src="nunu_Logo_High_Res_Asset.png" alt="nunu" loading="lazy" decoding="async"></div>
             <div class="footer-links">
                 <a href="index.html">Home</a>
                 <a href="platform.html">Platform</a>
@@ -661,12 +677,54 @@
     // Form validation & submit
     const form = document.querySelector('form');
     if (form) {
+        function clearErrors() {
+            form.querySelectorAll('.form-group').forEach(function(g) {
+                g.classList.remove('has-error');
+                var input = g.querySelector('input, select, textarea');
+                if (input) input.removeAttribute('aria-invalid');
+            });
+        }
+        form.querySelectorAll('input, select, textarea').forEach(function(el) {
+            el.addEventListener('input', function() {
+                var group = this.closest('.form-group');
+                if (group) { group.classList.remove('has-error'); this.removeAttribute('aria-invalid'); }
+            });
+        });
+        form.querySelector('#gdpr-consent-contact').addEventListener('change', function() {
+            if (this.checked) { document.getElementById('consent-group').classList.remove('has-error'); }
+        });
+
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = form.querySelector('.form-submit');
+            clearErrors();
+            var valid = true;
+            var fields = [
+                { id: 'name', test: function(v) { return v.trim().length > 0; } },
+                { id: 'email', test: function(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); } },
+                { id: 'message', test: function(v) { return v.trim().length > 0; } }
+            ];
+            var firstError = null;
+            fields.forEach(function(f) {
+                var input = document.getElementById(f.id);
+                if (!f.test(input.value)) {
+                    valid = false;
+                    input.closest('.form-group').classList.add('has-error');
+                    input.setAttribute('aria-invalid', 'true');
+                    if (!firstError) firstError = input;
+                }
+            });
+            var consent = document.getElementById('gdpr-consent-contact');
+            if (!consent.checked) {
+                valid = false;
+                document.getElementById('consent-group').classList.add('has-error');
+                if (!firstError) firstError = consent;
+            }
+            if (!valid) { if (firstError) firstError.focus(); return; }
+
+            var btn = form.querySelector('.form-submit');
+            btn.classList.add('loading');
             btn.textContent = 'Sending…';
             btn.disabled = true;
-            btn.style.opacity = '0.7';
             setTimeout(function() {
                 form.innerHTML = '<div style="text-align:center;padding:2rem 0;"><p style="font-size:1.2rem;color:var(--green);font-weight:700;margin-bottom:0.5rem;">Message sent</p><p style="color:var(--muted);">We\'ll be in touch within one working day.</p></div>';
             }, 800);
