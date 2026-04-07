@@ -1296,10 +1296,12 @@
                     const scrollY = window.scrollY;
                     const heroH = heroEl.offsetHeight;
                     if (scrollY < heroH) {
-                        const progress = scrollY / heroH;
-                        heroInner.style.transform = 'translateY(' + (scrollY * 0.15) + 'px)';
-                        heroInner.style.opacity = 1 - (progress * 0.8);
-                        heroInner.style.filter = 'blur(' + (progress * 6) + 'px)';
+                        const raw = scrollY / heroH;
+                        const deadZone = 0.4;
+                        const progress = raw < deadZone ? 0 : (raw - deadZone) / (1 - deadZone);
+                        heroInner.style.transform = 'translateY(' + (scrollY * 0.1) + 'px)';
+                        heroInner.style.opacity = 1 - (progress * 0.85);
+                        heroInner.style.filter = 'blur(' + (progress * 4) + 'px)';
                     }
                     ticking = false;
                 });
