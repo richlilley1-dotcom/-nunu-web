@@ -23,21 +23,14 @@
         var logos = document.querySelectorAll('.nav-logo img, .footer-logo img, .login-logo img');
         logos.forEach(function(img) {
             if (theme === 'light') {
-                // Light mode: show original black logo
-                // Reset to original source if we have it stored
-                if (img.dataset.originalSrc) {
-                    img.src = img.dataset.originalSrc;
+                // Light mode: black text on transparent background
+                if (typeof window.processLogoForLight === 'function') {
+                    window.processLogoForLight(img);
                 }
-                img.style.filter = 'none';
             } else {
-                // Dark mode: re-process with logo-loader
-                if (img.dataset.originalSrc) {
-                    img.src = img.dataset.originalSrc;
-                    img.style.filter = 'brightness(0) invert(1)';
-                    // Re-trigger logo-loader processing
-                    if (typeof window.processLogoForDark === 'function') {
-                        window.processLogoForDark(img);
-                    }
+                // Dark mode: white text on transparent background
+                if (typeof window.processLogoForDark === 'function') {
+                    window.processLogoForDark(img);
                 }
             }
         });
@@ -54,8 +47,18 @@
         }
     });
 
+    function updateLabel(theme) {
+        var label = document.getElementById('toggle-label');
+        if (label) label.textContent = theme === 'dark' ? 'Dark' : 'Light';
+    }
+
+    // Set initial label
+    updateLabel(getTheme());
+
     toggle.addEventListener('click', function() {
         var current = getTheme();
-        setTheme(current === 'dark' ? 'light' : 'dark');
+        var next = current === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+        updateLabel(next);
     });
 })();
