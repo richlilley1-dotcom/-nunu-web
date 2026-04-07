@@ -126,17 +126,17 @@ html[data-theme="light"] .evidence-card,
 html[data-theme="light"] .cap-card,
 html[data-theme="light"] .overview-card {
     background: #F5F5F5;
-    border-color: #DDDDDD;
+    border-color: rgba(0,170,0,0.35);
 }
 html[data-theme="light"] .evidence-card:hover,
 html[data-theme="light"] .cap-card:hover {
     border-color: #00AA00;
-    box-shadow: 0 2px 20px rgba(0,170,0,0.12);
+    box-shadow: 0 4px 24px rgba(0,170,0,0.15);
 }
 html[data-theme="light"] .overview-card:hover {
     background: #EEEEEE;
     border-color: #00AA00;
-    box-shadow: 0 2px 20px rgba(0,170,0,0.12);
+    box-shadow: 0 4px 24px rgba(0,170,0,0.15);
 }
 
 /* Card animated border glow — disable in light mode, use clean border instead */
@@ -154,7 +154,7 @@ html[data-theme="light"] .evidence-number {
 html[data-theme="light"] .cap-icon,
 html[data-theme="light"] .ai-cap-icon {
     background: rgba(0,170,0,0.06);
-    border-color: rgba(0,170,0,0.15);
+    border-color: rgba(0,170,0,0.3);
 }
 
 /* Tags */
@@ -189,21 +189,22 @@ html[data-theme="light"] .cta-section::before {
 
 /* AI section */
 html[data-theme="light"] .ai-visual {
-    border-color: rgba(0,170,0,0.15);
+    border-color: rgba(0,170,0,0.35);
 }
 html[data-theme="light"] .ai-visual::before {
     background: radial-gradient(circle at 30% 40%, rgba(0,170,0,0.06) 0%, transparent 60%);
 }
 html[data-theme="light"] .ai-feature {
-    border-color: #DDDDDD;
+    border-color: rgba(0,170,0,0.35);
 }
 html[data-theme="light"] .ai-feature:hover {
     background: rgba(0,170,0,0.03);
     border-color: #00AA00;
+    box-shadow: 0 4px 24px rgba(0,170,0,0.15);
 }
 html[data-theme="light"] .ai-cap {
     background: rgba(0,170,0,0.03);
-    border-color: #DDDDDD;
+    border-color: rgba(0,170,0,0.35);
 }
 
 /* Platform nav bar (platform.html sticky nav) */
@@ -246,7 +247,7 @@ html[data-theme="light"] .form-group label {
 /* Portal login card */
 html[data-theme="light"] .login-card {
     background: rgba(245,245,245,0.8);
-    border-color: rgba(0,170,0,0.12);
+    border-color: rgba(0,170,0,0.35);
     box-shadow: 0 4px 40px rgba(0,0,0,0.06);
 }
 html[data-theme="light"] .login-logo img {
@@ -314,31 +315,31 @@ html[data-theme="light"] .back-to-top:hover {
 /* Values page cards */
 html[data-theme="light"] .value-card {
     background: #F5F5F5;
-    border-color: #DDDDDD;
+    border-color: rgba(0,170,0,0.35);
 }
 html[data-theme="light"] .value-card:hover {
     border-color: #00AA00;
-    box-shadow: 0 2px 20px rgba(0,170,0,0.12);
+    box-shadow: 0 4px 24px rgba(0,170,0,0.15);
 }
 
 /* Promise section */
 html[data-theme="light"] .promise-card {
     background: #F5F5F5;
-    border-color: #DDDDDD;
+    border-color: rgba(0,170,0,0.35);
 }
 
 /* Deliverable cards (clarity-audit) */
 html[data-theme="light"] .deliverable-card {
     background: #F5F5F5;
-    border-color: #DDDDDD;
+    border-color: rgba(0,170,0,0.35);
 }
 html[data-theme="light"] .deliverable-card:hover {
     border-color: #00AA00;
-    box-shadow: 0 2px 20px rgba(0,170,0,0.12);
+    box-shadow: 0 4px 24px rgba(0,170,0,0.15);
 }
 html[data-theme="light"] .deliverable-icon {
     background: rgba(0,170,0,0.06);
-    border-color: rgba(0,170,0,0.15);
+    border-color: rgba(0,170,0,0.3);
 }
 
 /* Process steps */
@@ -349,7 +350,7 @@ html[data-theme="light"] .step-number {
 /* Contact cards */
 html[data-theme="light"] .contact-card {
     background: #F5F5F5;
-    border-color: #DDDDDD;
+    border-color: rgba(0,170,0,0.35);
 }
 
 /* Trust items */
@@ -360,11 +361,11 @@ html[data-theme="light"] .trust-item {
 /* Bento grid */
 html[data-theme="light"] .bento-item {
     background: #F5F5F5;
-    border-color: #DDDDDD;
+    border-color: rgba(0,170,0,0.35);
 }
 html[data-theme="light"] .bento-item:hover {
     border-color: #00AA00;
-    box-shadow: 0 2px 20px rgba(0,170,0,0.12);
+    box-shadow: 0 4px 24px rgba(0,170,0,0.15);
 }
 html[data-theme="light"] .bento-item.featured {
     border-color: rgba(0,170,0,0.3);
