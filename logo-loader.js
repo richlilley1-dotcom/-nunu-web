@@ -1,10 +1,10 @@
 /**
  * nunu Logo Loader
  * Processes black-on-white logo PNGs into white-on-transparent at runtime.
- * Works with any logo file (primary or full logo with tagline).
+ * Theme-aware: skips inversion in light mode.
  */
 (function() {
-    function processLogo(el) {
+    function processLogoForDark(el) {
         var img = new Image();
         img.crossOrigin = 'anonymous';
         img.onload = function() {
@@ -39,8 +39,24 @@
             el.src = canvas.toDataURL('image/png');
             el.style.filter = 'none';
         };
-        img.src = el.src;
+        // Use original source if available
+        img.src = el.dataset.originalSrc || el.src;
     }
 
-    document.querySelectorAll('.nav-logo img, .footer-logo img').forEach(processLogo);
+    // Expose for theme-toggle.js
+    window.processLogoForDark = processLogoForDark;
+
+    // Store original sources before processing
+    document.querySelectorAll('.nav-logo img, .footer-logo img, .login-logo img').forEach(function(el) {
+        var src = el.getAttribute('src');
+        if (src && src.indexOf('data:') !== 0) {
+            el.dataset.originalSrc = src;
+        }
+    });
+
+    // Only process for dark mode
+    var theme = document.documentElement.getAttribute('data-theme');
+    if (theme !== 'light') {
+        document.querySelectorAll('.nav-logo img, .footer-logo img, .login-logo img').forEach(processLogoForDark);
+    }
 })();
