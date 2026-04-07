@@ -6,7 +6,7 @@ html[data-theme="light"] {
     --green: #00AA00;
     --muted: #666666;
     --border: rgba(0,170,0,0.6);
-    --card-bg: rgba(0,170,0,0.04);
+    --card-bg: #FFFFFF;
 }
 
 /* Body & backgrounds */
@@ -125,7 +125,7 @@ html[data-theme="light"] p {
 html[data-theme="light"] .evidence-card,
 html[data-theme="light"] .cap-card,
 html[data-theme="light"] .overview-card {
-    background: rgba(0,170,0,0.04);
+    background: #FFFFFF;
     border-color: #00BB00;
 }
 html[data-theme="light"] .evidence-card:hover,
@@ -202,7 +202,7 @@ html[data-theme="light"] .ai-feature:hover {
     background: transparent;
 }
 html[data-theme="light"] .ai-cap {
-    background: rgba(0,170,0,0.03);
+    background: #FFFFFF;
     border-color: #00BB00;
 }
 
@@ -245,7 +245,7 @@ html[data-theme="light"] .form-group label {
 
 /* Portal login card */
 html[data-theme="light"] .login-card {
-    background: rgba(0,170,0,0.04);
+    background: #FFFFFF;
     border-color: #00BB00;
     box-shadow: 0 4px 40px rgba(0,0,0,0.06);
 }
@@ -313,7 +313,7 @@ html[data-theme="light"] .back-to-top:hover {
 
 /* Values page cards */
 html[data-theme="light"] .value-card {
-    background: rgba(0,170,0,0.04);
+    background: #FFFFFF;
     border-color: #00BB00;
 }
 html[data-theme="light"] .value-card:hover {
@@ -323,13 +323,13 @@ html[data-theme="light"] .value-card:hover {
 
 /* Promise section */
 html[data-theme="light"] .promise-card {
-    background: rgba(0,170,0,0.04);
+    background: #FFFFFF;
     border-color: #00BB00;
 }
 
 /* Deliverable cards (clarity-audit) */
 html[data-theme="light"] .deliverable-card {
-    background: rgba(0,170,0,0.04);
+    background: #FFFFFF;
     border-color: #00BB00;
 }
 html[data-theme="light"] .deliverable-card:hover {
@@ -348,7 +348,7 @@ html[data-theme="light"] .step-number {
 
 /* Contact cards */
 html[data-theme="light"] .contact-card {
-    background: rgba(0,170,0,0.04);
+    background: #FFFFFF;
     border-color: #00BB00;
 }
 
@@ -359,7 +359,7 @@ html[data-theme="light"] .trust-item {
 
 /* Bento grid */
 html[data-theme="light"] .bento-item {
-    background: rgba(0,170,0,0.04);
+    background: #FFFFFF;
     border-color: #00BB00;
 }
 html[data-theme="light"] .bento-item:hover {
