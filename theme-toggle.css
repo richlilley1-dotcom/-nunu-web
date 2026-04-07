@@ -6,7 +6,7 @@ html[data-theme="light"] {
     --green: #00AA00;
     --muted: #666666;
     --border: rgba(0,170,0,0.6);
-    --card-bg: #F5F5F5;
+    --card-bg: #FFFFFF;
 }
 
 /* Body & backgrounds */
@@ -125,7 +125,7 @@ html[data-theme="light"] p {
 html[data-theme="light"] .evidence-card,
 html[data-theme="light"] .cap-card,
 html[data-theme="light"] .overview-card {
-    background: #F5F5F5;
+    background: #FFFFFF;
     border-color: rgba(0,170,0,0.6);
 }
 html[data-theme="light"] .evidence-card:hover,
@@ -180,7 +180,7 @@ html[data-theme="light"] .timeline-dot {
 
 /* CTA section */
 html[data-theme="light"] .cta-section {
-    background: #F5F5F5;
+    background: #FFFFFF;
 }
 html[data-theme="light"] .cta-section::before {
     background: linear-gradient(90deg, transparent, rgba(0,170,0,0.15), transparent);
@@ -245,7 +245,7 @@ html[data-theme="light"] .form-group label {
 
 /* Portal login card */
 html[data-theme="light"] .login-card {
-    background: rgba(245,245,245,0.8);
+    background: rgba(255,255,255,0.9);
     border-color: rgba(0,170,0,0.6);
     box-shadow: 0 4px 40px rgba(0,0,0,0.06);
 }
@@ -302,7 +302,7 @@ html[data-theme="light"] .cursor-glow {
 
 /* Back to top */
 html[data-theme="light"] .back-to-top {
-    background: #F5F5F5;
+    background: #FFFFFF;
     border-color: rgba(0,170,0,0.6);
     color: #00AA00;
 }
@@ -313,7 +313,7 @@ html[data-theme="light"] .back-to-top:hover {
 
 /* Values page cards */
 html[data-theme="light"] .value-card {
-    background: #F5F5F5;
+    background: #FFFFFF;
     border-color: rgba(0,170,0,0.6);
 }
 html[data-theme="light"] .value-card:hover {
@@ -323,13 +323,13 @@ html[data-theme="light"] .value-card:hover {
 
 /* Promise section */
 html[data-theme="light"] .promise-card {
-    background: #F5F5F5;
+    background: #FFFFFF;
     border-color: rgba(0,170,0,0.6);
 }
 
 /* Deliverable cards (clarity-audit) */
 html[data-theme="light"] .deliverable-card {
-    background: #F5F5F5;
+    background: #FFFFFF;
     border-color: rgba(0,170,0,0.6);
 }
 html[data-theme="light"] .deliverable-card:hover {
@@ -348,7 +348,7 @@ html[data-theme="light"] .step-number {
 
 /* Contact cards */
 html[data-theme="light"] .contact-card {
-    background: #F5F5F5;
+    background: #FFFFFF;
     border-color: rgba(0,170,0,0.6);
 }
 
@@ -359,7 +359,7 @@ html[data-theme="light"] .trust-item {
 
 /* Bento grid */
 html[data-theme="light"] .bento-item {
-    background: #F5F5F5;
+    background: #FFFFFF;
     border-color: rgba(0,170,0,0.6);
 }
 html[data-theme="light"] .bento-item:hover {
