@@ -6,7 +6,7 @@ html[data-theme="light"] {
     --green: #00AA00;
     --muted: #666666;
     --border: rgba(0,170,0,0.6);
-    --card-bg: #FFFFFF;
+    --card-bg: rgba(0,170,0,0.04);
 }
 
 /* Body & backgrounds */
@@ -125,8 +125,8 @@ html[data-theme="light"] p {
 html[data-theme="light"] .evidence-card,
 html[data-theme="light"] .cap-card,
 html[data-theme="light"] .overview-card {
-    background: #FFFFFF;
-    border-color: rgba(0,170,0,0.6);
+    background: rgba(0,170,0,0.04);
+    border-color: #00BB00;
 }
 html[data-theme="light"] .evidence-card:hover,
 html[data-theme="light"] .cap-card:hover {
@@ -188,13 +188,13 @@ html[data-theme="light"] .cta-section::before {
 
 /* AI section */
 html[data-theme="light"] .ai-visual {
-    border-color: rgba(0,170,0,0.6);
+    border-color: #00BB00;
 }
 html[data-theme="light"] .ai-visual::before {
     background: radial-gradient(circle at 30% 40%, rgba(0,170,0,0.06) 0%, transparent 60%);
 }
 html[data-theme="light"] .ai-feature {
-    border-color: rgba(0,170,0,0.6);
+    border-color: #00BB00;
 }
 html[data-theme="light"] .ai-feature:hover {
     border-color: #00CC00;
@@ -203,7 +203,7 @@ html[data-theme="light"] .ai-feature:hover {
 }
 html[data-theme="light"] .ai-cap {
     background: rgba(0,170,0,0.03);
-    border-color: rgba(0,170,0,0.6);
+    border-color: #00BB00;
 }
 
 /* Platform nav bar (platform.html sticky nav) */
@@ -245,8 +245,8 @@ html[data-theme="light"] .form-group label {
 
 /* Portal login card */
 html[data-theme="light"] .login-card {
-    background: rgba(255,255,255,0.9);
-    border-color: rgba(0,170,0,0.6);
+    background: rgba(0,170,0,0.04);
+    border-color: #00BB00;
     box-shadow: 0 4px 40px rgba(0,0,0,0.06);
 }
 html[data-theme="light"] .login-logo img {
@@ -303,7 +303,7 @@ html[data-theme="light"] .cursor-glow {
 /* Back to top */
 html[data-theme="light"] .back-to-top {
     background: #FFFFFF;
-    border-color: rgba(0,170,0,0.6);
+    border-color: #00BB00;
     color: #00AA00;
 }
 html[data-theme="light"] .back-to-top:hover {
@@ -313,8 +313,8 @@ html[data-theme="light"] .back-to-top:hover {
 
 /* Values page cards */
 html[data-theme="light"] .value-card {
-    background: #FFFFFF;
-    border-color: rgba(0,170,0,0.6);
+    background: rgba(0,170,0,0.04);
+    border-color: #00BB00;
 }
 html[data-theme="light"] .value-card:hover {
     border-color: #00CC00;
@@ -323,14 +323,14 @@ html[data-theme="light"] .value-card:hover {
 
 /* Promise section */
 html[data-theme="light"] .promise-card {
-    background: #FFFFFF;
-    border-color: rgba(0,170,0,0.6);
+    background: rgba(0,170,0,0.04);
+    border-color: #00BB00;
 }
 
 /* Deliverable cards (clarity-audit) */
 html[data-theme="light"] .deliverable-card {
-    background: #FFFFFF;
-    border-color: rgba(0,170,0,0.6);
+    background: rgba(0,170,0,0.04);
+    border-color: #00BB00;
 }
 html[data-theme="light"] .deliverable-card:hover {
     border-color: #00CC00;
@@ -348,8 +348,8 @@ html[data-theme="light"] .step-number {
 
 /* Contact cards */
 html[data-theme="light"] .contact-card {
-    background: #FFFFFF;
-    border-color: rgba(0,170,0,0.6);
+    background: rgba(0,170,0,0.04);
+    border-color: #00BB00;
 }
 
 /* Trust items */
@@ -359,8 +359,8 @@ html[data-theme="light"] .trust-item {
 
 /* Bento grid */
 html[data-theme="light"] .bento-item {
-    background: #FFFFFF;
-    border-color: rgba(0,170,0,0.6);
+    background: rgba(0,170,0,0.04);
+    border-color: #00BB00;
 }
 html[data-theme="light"] .bento-item:hover {
     border-color: #00CC00;
