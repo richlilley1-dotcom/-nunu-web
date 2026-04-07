@@ -130,17 +130,19 @@ html[data-theme="light"] .overview-card {
 }
 html[data-theme="light"] .evidence-card:hover,
 html[data-theme="light"] .cap-card:hover {
-    box-shadow: 0 0 30px rgba(0,170,0,0.1), inset 0 1px 0 rgba(0,0,0,0.02);
+    border-color: #00AA00;
+    box-shadow: 0 2px 20px rgba(0,170,0,0.12);
 }
 html[data-theme="light"] .overview-card:hover {
     background: #EEEEEE;
-    box-shadow: inset 0 0 0 1px rgba(0,170,0,0.3), 0 0 20px rgba(0,170,0,0.08);
+    border-color: #00AA00;
+    box-shadow: 0 2px 20px rgba(0,170,0,0.12);
 }
 
-/* Card animated border glow */
+/* Card animated border glow — disable in light mode, use clean border instead */
 html[data-theme="light"] .evidence-card::before,
 html[data-theme="light"] .cap-card::before {
-    background: linear-gradient(135deg, transparent 40%, rgba(0,170,0,0.4) 50%, transparent 60%) !important;
+    display: none !important;
 }
 
 /* Evidence numbers */
@@ -196,8 +198,8 @@ html[data-theme="light"] .ai-feature {
     border-color: #DDDDDD;
 }
 html[data-theme="light"] .ai-feature:hover {
-    background: rgba(0,170,0,0.04);
-    border-color: rgba(0,170,0,0.15);
+    background: rgba(0,170,0,0.03);
+    border-color: #00AA00;
 }
 html[data-theme="light"] .ai-cap {
     background: rgba(0,170,0,0.03);
@@ -315,7 +317,8 @@ html[data-theme="light"] .value-card {
     border-color: #DDDDDD;
 }
 html[data-theme="light"] .value-card:hover {
-    box-shadow: 0 0 30px rgba(0,170,0,0.1);
+    border-color: #00AA00;
+    box-shadow: 0 2px 20px rgba(0,170,0,0.12);
 }
 
 /* Promise section */
@@ -330,7 +333,8 @@ html[data-theme="light"] .deliverable-card {
     border-color: #DDDDDD;
 }
 html[data-theme="light"] .deliverable-card:hover {
-    box-shadow: 0 0 30px rgba(0,170,0,0.1);
+    border-color: #00AA00;
+    box-shadow: 0 2px 20px rgba(0,170,0,0.12);
 }
 html[data-theme="light"] .deliverable-icon {
     background: rgba(0,170,0,0.06);
@@ -359,7 +363,8 @@ html[data-theme="light"] .bento-item {
     border-color: #DDDDDD;
 }
 html[data-theme="light"] .bento-item:hover {
-    box-shadow: 0 0 30px rgba(0,170,0,0.1);
+    border-color: #00AA00;
+    box-shadow: 0 2px 20px rgba(0,170,0,0.12);
 }
 html[data-theme="light"] .bento-item.featured {
     border-color: rgba(0,170,0,0.3);
