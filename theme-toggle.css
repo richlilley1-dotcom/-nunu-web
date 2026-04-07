@@ -46,7 +46,8 @@ html[data-theme="light"] .btn-outline {
     color: #111111;
     border-color: #CCCCCC;
 }
-html[data-theme="light"] .btn-outline:hover {
+html[data-theme="light"] .btn-outline:hover,
+html[data-theme="light"] .btn-outline.active {
     border-color: #00AA00;
     color: #00AA00;
 }
@@ -54,7 +55,8 @@ html[data-theme="light"] .btn-primary {
     background: #00AA00;
     color: #FFFFFF;
 }
-html[data-theme="light"] .btn-primary:hover {
+html[data-theme="light"] .btn-primary:hover,
+html[data-theme="light"] .btn-primary.active {
     background: #00CC00;
     box-shadow: 0 0 24px rgba(0,170,0,0.25);
 }
