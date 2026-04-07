@@ -47,10 +47,11 @@ html[data-theme="light"] body {
     color: #111111;
 }
 
-/* Nav */
+/* Nav — elevated with subtle shadow */
 html[data-theme="light"] nav {
-    background: rgba(255,255,255,0.95);
-    border-bottom-color: #DDDDDD;
+    background: rgba(255,255,255,0.97);
+    border-bottom-color: rgba(0,170,0,0.12);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
 }
 
 /* Nav logo — keep original black logo */
@@ -84,13 +85,14 @@ html[data-theme="light"] .btn-outline.active {
     color: #00AA00;
 }
 html[data-theme="light"] .btn-primary {
-    background: #00AA00;
+    background: linear-gradient(135deg, #00BB00, #009900);
     color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0,153,0,0.2);
 }
 html[data-theme="light"] .btn-primary:hover,
 html[data-theme="light"] .btn-primary.active {
-    background: #00CC00;
-    box-shadow: 0 0 24px rgba(0,170,0,0.25);
+    background: linear-gradient(135deg, #00CC00, #00AA00);
+    box-shadow: 0 4px 16px rgba(0,170,0,0.3), 0 0 0 1px rgba(0,170,0,0.1);
 }
 
 /* Hamburger */
@@ -135,14 +137,40 @@ html[data-theme="light"] .hero-teaser {
     color: #777777 !important;
 }
 html[data-theme="light"] .hero-badge {
-    background: rgba(0,170,0,0.08);
-    border-color: rgba(0,170,0,0.2);
-    color: #00AA00;
+    background: rgba(0,170,0,0.06);
+    border-color: rgba(0,170,0,0.18);
+    color: #009900;
+    box-shadow: 0 1px 4px rgba(0,170,0,0.06);
 }
 
-/* Page hero (inner pages) */
+/* Page hero (inner pages) — subtle green wash */
 html[data-theme="light"] .page-hero {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FDF8 100%);
+}
+
+/* Alternating section backgrounds for visual rhythm */
+html[data-theme="light"] .evidence {
+    background: #F8FAF8;
+}
+html[data-theme="light"] .why-section {
+    background: #F8FAF8;
+}
+html[data-theme="light"] .capabilities {
     background: #FFFFFF;
+}
+
+/* Audit form card */
+html[data-theme="light"] .audit-form-card {
+    background: #FFFFFF;
+    border-color: rgba(0,187,0,0.35);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04), 0 16px 48px rgba(0,0,0,0.06);
+}
+
+/* Contact form card */
+html[data-theme="light"] .contact-form-card {
+    background: #FFFFFF;
+    border-color: rgba(0,187,0,0.35);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04), 0 16px 48px rgba(0,0,0,0.06);
 }
 
 /* Eyebrow */
@@ -155,21 +183,22 @@ html[data-theme="light"] p {
     color: #666666;
 }
 
-/* Cards — evidence, capability, overview */
+/* Cards — evidence, capability, overview — elevated with shadow + green accent */
 html[data-theme="light"] .evidence-card,
 html[data-theme="light"] .cap-card,
 html[data-theme="light"] .overview-card {
     background: #FFFFFF;
-    border-color: #00BB00;
+    border-color: rgba(0,187,0,0.35);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.03);
 }
 html[data-theme="light"] .evidence-card:hover,
 html[data-theme="light"] .cap-card:hover {
-    border-color: #00CC00;
-    box-shadow: none;
+    border-color: #00BB00;
+    box-shadow: 0 4px 16px rgba(0,170,0,0.1), 0 8px 32px rgba(0,0,0,0.04);
 }
 html[data-theme="light"] .overview-card:hover {
-    border-color: #00CC00;
-    box-shadow: none;
+    border-color: #00BB00;
+    box-shadow: 0 4px 16px rgba(0,170,0,0.1), 0 8px 32px rgba(0,0,0,0.04);
 }
 
 /* Card animated border glow — disable in light mode, use clean border instead */
@@ -183,18 +212,19 @@ html[data-theme="light"] .evidence-number {
     color: #00AA00;
 }
 
-/* Icon containers */
+/* Icon containers — stronger green presence */
 html[data-theme="light"] .cap-icon,
 html[data-theme="light"] .ai-cap-icon {
-    background: rgba(0,170,0,0.06);
-    border-color: rgba(0,170,0,0.3);
+    background: rgba(0,170,0,0.1);
+    border-color: rgba(0,170,0,0.25);
 }
 
-/* Tags */
+/* Tags — crisp pill style */
 html[data-theme="light"] .tag {
-    background: rgba(0,170,0,0.06);
-    border-color: rgba(0,170,0,0.15);
-    color: #00AA00;
+    background: rgba(0,170,0,0.07);
+    border-color: rgba(0,170,0,0.18);
+    color: #009900;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
 }
 
 /* Stat grid */
@@ -212,32 +242,35 @@ html[data-theme="light"] .timeline-dot {
     color: #00AA00;
 }
 
-/* CTA section */
+/* CTA section — green-tinted background for emphasis */
 html[data-theme="light"] .cta-section {
-    background: #FFFFFF;
+    background: linear-gradient(180deg, #F0FFF0 0%, #FFFFFF 100%);
 }
 html[data-theme="light"] .cta-section::before {
-    background: linear-gradient(90deg, transparent, rgba(0,170,0,0.15), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0,170,0,0.2), transparent);
 }
 
-/* AI section */
+/* AI section — subtle depth */
 html[data-theme="light"] .ai-visual {
-    border-color: #00BB00;
+    border-color: rgba(0,187,0,0.35);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.03);
 }
 html[data-theme="light"] .ai-visual::before {
-    background: radial-gradient(circle at 30% 40%, rgba(0,170,0,0.06) 0%, transparent 60%);
+    background: radial-gradient(circle at 30% 40%, rgba(0,170,0,0.08) 0%, transparent 60%);
 }
 html[data-theme="light"] .ai-feature {
-    border-color: #00BB00;
+    border-color: rgba(0,187,0,0.35);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.03);
 }
 html[data-theme="light"] .ai-feature:hover {
-    border-color: #00CC00;
-    box-shadow: none;
+    border-color: #00BB00;
+    box-shadow: 0 4px 16px rgba(0,170,0,0.1), 0 8px 32px rgba(0,0,0,0.04);
     background: transparent;
 }
 html[data-theme="light"] .ai-cap {
     background: #FFFFFF;
-    border-color: #00BB00;
+    border-color: rgba(0,187,0,0.35);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.03);
 }
 
 /* Platform nav bar (platform.html sticky nav) */
@@ -255,19 +288,21 @@ html[data-theme="light"] .platform-nav-links a.active {
     color: #00AA00;
 }
 
-/* Forms */
+/* Forms — clean with subtle depth */
 html[data-theme="light"] .form-group input,
 html[data-theme="light"] .form-group select,
 html[data-theme="light"] .form-group textarea {
-    background: #FFFFFF;
-    border-color: #CCCCCC;
+    background: #FAFAFA;
+    border-color: #E0E0E0;
     color: #111111;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
 }
 html[data-theme="light"] .form-group input:focus,
 html[data-theme="light"] .form-group select:focus,
 html[data-theme="light"] .form-group textarea:focus {
+    background: #FFFFFF;
     border-color: #00AA00;
-    box-shadow: 0 0 16px rgba(0,170,0,0.12);
+    box-shadow: 0 0 0 3px rgba(0,170,0,0.08), 0 0 16px rgba(0,170,0,0.06);
 }
 html[data-theme="light"] .form-group input::placeholder,
 html[data-theme="light"] .form-group textarea::placeholder {
@@ -280,8 +315,8 @@ html[data-theme="light"] .form-group label {
 /* Portal login card */
 html[data-theme="light"] .login-card {
     background: #FFFFFF;
-    border-color: #00BB00;
-    box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+    border-color: rgba(0,187,0,0.35);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04), 0 16px 48px rgba(0,0,0,0.06);
 }
 html[data-theme="light"] .login-logo img {
     filter: none !important;
@@ -303,13 +338,14 @@ html[data-theme="light"] .password-toggle {
     color: #666666;
 }
 
-/* Footer */
+/* Footer — soft grey background for contrast anchor */
 html[data-theme="light"] footer {
-    border-top-color: #DDDDDD;
+    background: #F7F9F7;
+    border-top: 1px solid rgba(0,170,0,0.1);
 }
 html[data-theme="light"] .footer-copy {
     color: #999999;
-    border-top-color: #DDDDDD;
+    border-top-color: rgba(0,170,0,0.08);
 }
 
 /* Scrollbar */
@@ -337,42 +373,46 @@ html[data-theme="light"] .cursor-glow {
 /* Back to top */
 html[data-theme="light"] .back-to-top {
     background: #FFFFFF;
-    border-color: #00BB00;
+    border-color: rgba(0,187,0,0.35);
     color: #00AA00;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 html[data-theme="light"] .back-to-top:hover {
-    border-color: #00CC00;
-    box-shadow: none;
+    border-color: #00BB00;
+    box-shadow: 0 4px 16px rgba(0,170,0,0.15);
 }
 
 /* Values page cards */
 html[data-theme="light"] .value-card {
     background: #FFFFFF;
-    border-color: #00BB00;
+    border-color: rgba(0,187,0,0.35);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.03);
 }
 html[data-theme="light"] .value-card:hover {
-    border-color: #00CC00;
-    box-shadow: none;
+    border-color: #00BB00;
+    box-shadow: 0 4px 16px rgba(0,170,0,0.1), 0 8px 32px rgba(0,0,0,0.04);
 }
 
 /* Promise section */
 html[data-theme="light"] .promise-card {
     background: #FFFFFF;
-    border-color: #00BB00;
+    border-color: rgba(0,187,0,0.35);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.03);
 }
 
 /* Deliverable cards (clarity-audit) */
 html[data-theme="light"] .deliverable-card {
     background: #FFFFFF;
-    border-color: #00BB00;
+    border-color: rgba(0,187,0,0.35);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.03);
 }
 html[data-theme="light"] .deliverable-card:hover {
-    border-color: #00CC00;
-    box-shadow: none;
+    border-color: #00BB00;
+    box-shadow: 0 4px 16px rgba(0,170,0,0.1), 0 8px 32px rgba(0,0,0,0.04);
 }
 html[data-theme="light"] .deliverable-icon {
-    background: rgba(0,170,0,0.06);
-    border-color: rgba(0,170,0,0.3);
+    background: rgba(0,170,0,0.1);
+    border-color: rgba(0,170,0,0.25);
 }
 
 /* Process steps */
@@ -383,7 +423,8 @@ html[data-theme="light"] .step-number {
 /* Contact cards */
 html[data-theme="light"] .contact-card {
     background: #FFFFFF;
-    border-color: #00BB00;
+    border-color: rgba(0,187,0,0.35);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.03);
 }
 
 /* Trust items */
@@ -394,14 +435,16 @@ html[data-theme="light"] .trust-item {
 /* Bento grid */
 html[data-theme="light"] .bento-item {
     background: #FFFFFF;
-    border-color: #00BB00;
+    border-color: rgba(0,187,0,0.35);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.03);
 }
 html[data-theme="light"] .bento-item:hover {
-    border-color: #00CC00;
-    box-shadow: none;
+    border-color: #00BB00;
+    box-shadow: 0 4px 16px rgba(0,170,0,0.1), 0 8px 32px rgba(0,0,0,0.04);
 }
 html[data-theme="light"] .bento-item.featured {
-    border-color: rgba(0,170,0,0.3);
+    border-color: rgba(0,170,0,0.5);
+    box-shadow: 0 2px 8px rgba(0,170,0,0.08), 0 8px 32px rgba(0,0,0,0.04);
 }
 
 /* ========== THEME TOGGLE BUTTON ========== */
